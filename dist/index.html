@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.78032849.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/all.min.dbf80247.js"></script>
+    <title>NutriFood</title>
+<script src="/style.78032849.js"></script></head>
+
+<body>
+    <main>
+        <header class="navigation top">
+            <nav>
+                <!-- logo container -->
+                <div class="logo">
+                    <h1>NUTRIFOOD
+                    </h1>
+                </div>
+                <!-- search input container -->
+                <div class="search">
+                    <form>
+                        <input type="search" autocomplete="true" id="search" placeholder="search for food recipe according to their nutrient">
+                        <button class="search_button">search</button>
+                    </form>
+                </div>
+                <!-- <div class="search_icon">
+                    <img src="./icons/sun.png" alt="sun for theme">
+                </div> -->
+                <!-- dark mode container -->
+                <div class="theme_container">
+                    <div class="theme_center_container">
+                        <span class="theme dark">
+                            <img src="/sun.81d93010.png" alt="sun icon">
+                        </span>
+                    </div>
+                </div>
+                <!-- fave icon for fave -->
+                <div class="fave_container">
+                    <span class="fave_png">
+                        <img src="/heart.bbe9d1e8.png" alt="heart-icon"></span>
+                </div>
+            </nav>
+        </header>
+
+        <!-- recipe image container -->
+        <section class="recipe_container left_container animate_page hide_page " id="recipe_image">
+            <div class="details_container">
+                <!-- loader container {display:none} -->
+                <div class="loader_container" id="recipe_loader">
+                    <div class="loader"></div>
+                </div>
+                 <ul class="recipe__container">
+                       <!-- <li class="recipe__list">
+                             <img src="./pexels-photo-678725.jpeg" alt="image" id="one">
+                    </li> -->                     
+                </ul>
+                </div>
+                <!-- pagination section -->
+                <!-- <div class="pagination_container ">
+                    <button class="previous pagination">prev</button>
+                    <button class="next pagination">next</button>
+                </div> -->
+        </section>
+        <!-- recipe details container -->
+        <section class="recipe_details middle animate_page">
+            <div class="details_container">
+                <!-- loader container {display:none} -->
+                <div class="loader_container details" id="details__loader">
+                    <div class="loader" id="one"></div>
+
+                </div>
+                <footer class="dev__name">
+                    <span>Powered by: <small>Forkify-Api</small></span>
+                    <span>NewDev&copy; <small>2020</small></span>
+                </footer>
+            </div>
+        </section>
+        <!-- fave recipe images markup -->
+        <section class="fav_recipe right animate_page" id="fave_recipe">
+            <ul class="fave_images_container">
+            </ul>
+            <div class="fav_recipe_details left">
+                <span class="close_icon"></span>
+            </div>
+        </section>
+
+        <!-- button for tab for mobile view  -->
+        <div class="button_tab">
+            <div class="button">
+                <div class="mobile_nav" data-id="recipe_image">
+                    <span class="home">
+                        <img src="/home.e9946146.png" alt="home icon">
+                        <small class="small hide_small" id="home_small"> HOME</small>
+                    </span>
+                </div>
+                <div class="mobile_nav" data-id="fave_recipe">
+                    <span class="heart">
+                        <!-- <img src="./icons/heart.png" alt="heart"> -->
+                        <i class="fas fa-heart"></i>
+                        <small class="small " id="fave_small"> FAVE</small>
+                    </span>
+                </div>
+                <div id="theme">
+                    <span class="theme">
+                        <img src="/magnifiying-glass.a221930d.png" alt="sun icon" class="searchIcon">
+                        <small class="small">SEARCH</small>
+                    </span>
+                </div>
+
+                <div class="filter">
+                    <span>
+                         
+                        <i class="fa fa-filter"></i>    
+                        <small class="small"> FILTER</small>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/js.00a46daa.js"></script>
+</body>
+
+</html>
