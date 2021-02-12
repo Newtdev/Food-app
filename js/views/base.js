@@ -18,7 +18,10 @@ export const element = {
   recipe_image: document.getElementById('recipe_image'),
   ingredientList: document.querySelector('.ingredient__list'),
   detailsCycle: document.getElementById('details__cycle'),
-  addFave: document.getElementById('fave_recipe')
+  addFave: document.getElementById('fave_recipe'),
+  displayFave: document.querySelector('.fave_images_container'),
+  delete_Class: document.querySelector('.delete')
+
 
 };
 // console.log(element.searchQuery);

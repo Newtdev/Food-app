@@ -895,7 +895,9 @@ const element = {
   recipe_image: document.getElementById('recipe_image'),
   ingredientList: document.querySelector('.ingredient__list'),
   detailsCycle: document.getElementById('details__cycle'),
-  addFave: document.getElementById('fave_recipe')
+  addFave: document.getElementById('fave_recipe'),
+  displayFave: document.querySelector('.fave_images_container'),
+  delete_Class: document.querySelector('.delete')
 }; // console.log(element.searchQuery);
 // https://github.com/Newtdev/Food-app.git
 
@@ -2886,6 +2888,7 @@ var _addLoader = require("./addLoader");
 
 var _base = require("./base");
 
+// DISPLAY THE RECIPE IMAGE 
 const displayRecipeData = recipeData => {
   const displayData = recipeData.map(recipe => {
     return "\n                <li class=\"recipe__list\">\n                <img src=".concat(recipe.image, " alt=").concat(recipe.title, " id=").concat(recipe.recipe_id, ">\n       </li>  \n       ");
@@ -2909,16 +2912,12 @@ const clearDOM = (recipe, data, elem) => {
 const EmptyDOM = elem => {
   elem.innerHTML = '';
 };
-
-const a = words => {};
-
-a('thisisthenameofmyschool');
 /** DISPLAY RECIPE DETAILS */
+
 
 const recipeDetails_DOM = recipe => {
   loadObj(recipe);
-  const creatElem = document.createElement('article'); // creatElem.classList.add('details_container')
-
+  const creatElem = document.createElement('article');
   creatElem.innerHTML = "\n    <div class=\"image_container\">\n    <img src=".concat(recipe.image_url, " alt=\"heart\">\n    <div class=\"delete__container\">\n                        <div class=\"cycle\"id='details__cycle'>\n                            <span></span>\n                            <span></span>\n                            <span></span>\n                        </div>\n                        <div class=\"delete\" id='").concat(recipe.recipe_id, "'>\n                            To Fave\n                        </div>\n                    </div>\n    <div class=\"recipe_details_container\">\n     <span class=\"recipe__label\">\n        <h1>").concat(recipe.title, "</h1>\n    </span>\n    <span class=\"calories\">\n        <h1>Publisher: <small>").concat(recipe.publisher, "</small></h1>\n    </span>\n    <span class=\"ingredient__list\">\n        <span>\n            <h1>Ingredient List</h1>\n        </span>\n        <ul> \n        ").concat(saved_Ingredient(recipe), "\n        </ul>\n    </span>\n</div>\n"); // clearDetails(element.detailSection.appendChild(creatElem),creatElem);
 
   if (!creatElem) {
@@ -2928,8 +2927,7 @@ const recipeDetails_DOM = recipe => {
 
     _base.element.detailSection.appendChild(creatElem);
   }
-}; // export const clearDetails = (details,child)=> {
-// }
+}; // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
 
 
 exports.recipeDetails_DOM = recipeDetails_DOM;
@@ -2940,6 +2938,9 @@ const saved_Ingredient = data => {
   }).join('');
   return savedIngredient;
 };
+/** ADDING EACH RECIPE IMAGE AS FAVE AND ADDING TO THE LOCAL STORAGE */
+// ARRAY TO DATA TO LOCAL STORAGE
+
 
 let localStorageArr = [];
 
@@ -2950,35 +2951,49 @@ const loadObj = data => {
 
     if (targetID) {
       delete_Class.classList.add('visible');
+      delete_Class.addEventListener('click', e => {
+        const deleteID = delete_Class.id; // GETTING THE RECIPE OBJECT OF THE SELECTED RECIPE IMAGE DATAILS
+
+        if (data.recipe_id === deleteID) {
+          localStorageArr = new set([...localStorageArr, data]);
+          console.log(localStorageArr); // SEND THE ARRAY TO LOCAL STORAGE
+
+          pushLocalStorage(localStorageArr);
+        }
+      });
     }
 
     ;
-    delete_Class.addEventListener('click', e => {
-      const deleteID = delete_Class.id;
-
-      if (data.recipe_id === deleteID) {
-        // faveDOM(data);
-        localStorageArr = [...localStorageArr, data];
-        console.log(localStorageArr);
-        pushLocalStorage(localStorageArr);
-      }
-    }); // new_data(deleteID);
-    // awaitRecipeDetails(deleteID);
   });
-};
+}; //   GETTING THE SELECTED IMAGE ID
+// SEND THE ARRAY TO LOCAL STORAGE
+
 
 exports.loadObj = loadObj;
 
 const pushLocalStorage = val => {
-  localStorage.setItem('Fave Recipe', JSON.Stringify(val));
+  // SEND THE ARRAY TO LOCAL STORAGE
+  localStorage.setItem('faveRecipe', JSON.stringify(val)); // if(val){
+  //     localStorage.setItem('faveRecipe', JSON.stringify(''));
+  // }
 };
 
-const faveDOM = data => {
-  const create_Element = document.createElement('ul');
-  create_Element.classList.add('fave_images_container');
-  create_Element.innerHTML = "\n      <li>\n                    <img src=".concat(data.image_url, " alt=\"fave\">\n                    <div class=\"delete__container\">\n                        <div class=\"cycle\" id='fave__delete'>\n                            <span></span>\n                            <span></span>\n                            <span></span>\n                        </div>\n                        <div class=\"delete\">\n                            delete\n                        </div>\n                    </div>\n                </li>\n      ");
+const getFaveImage = () => {
+  // RETRIVING THE FROM THE LOCAL STORAGE
+  const faveImage = JSON.parse(localStorage.getItem('faveRecipe')); // console.log(faveImage);
 
-  _base.element.addFave.appendChild(create_Element);
+  faveDOM(faveImage);
+}; //   DISPLAYING FAVE RECIPE TO THE DOM FROM LOCAL STORAGE
+
+
+const faveDOM = data => {
+  const displayFaveData = data.map(data => {
+    return "\n        <li>\n        <img src=".concat(data.image_url, " alt=\"fave\">\n                    <div class=\"delete__container\">\n                        <div class=\"cycle\" id='fave__delete' id='data.recipe_id'>\n                            <span></span>\n                            <span></span>\n                            <span></span>\n                        </div>\n                        <div class=\"delete\">\n                            delete\n                        </div>\n                    </div>\n                </li>\n        ");
+  }).join('');
+  _base.element.displayFave.innerHTML = displayFaveData;
+  window.addEventListener('DOMContentLoaded', () => {
+    getFaveImage();
+  });
 };
 },{"./addLoader":"js/views/addLoader.js","./base":"js/views/base.js"}],"js/models/RecipeDetails.js":[function(require,module,exports) {
 "use strict";
@@ -3083,15 +3098,14 @@ _base.element.dataList.addEventListener('click', e => {
 });
 
 const awaitRecipeDetails = async id => {
-  // GET PRODUCT BY ID AND SAVE IN THE APPSTATE
+  // GET PRODUCT BY ID AND SAVE IN THE APP STATE
   appState = await (0, _RecipeDetails.new_data)(id);
   let getDetail = (0, _Fetch.get_Details)(appState); // ADD LOADER 
 
   (0, _addLoader.detailsLoader)(); // ADD TO THE RECIPE DOM TO DISPLAY
 
   (0, _recipeDOM.recipeDetails_DOM)(getDetail);
-}; // const getRE
-// ADD THE RECIPE DETAILS CONTAINER IN THE MOBILE VIEW
+}; // ADD THE RECIPE DETAILS CONTAINER IN THE MOBILE VIEW
 
 
 const mediaQuery = window.matchMedia("(max-width:768px)");
@@ -3104,19 +3118,15 @@ const detailsLenght = e => {
 
     _base.element.detailSection.classList.add('hide_page');
   }
-}; // element.detailSection.addEventListener('click', (e) => {
-//   const targetID = e.target.id;
-//   const delete_Class = document.querySelector('.delete');
-//   if(targetID){
-//      delete_Class.classList.add('visible');
-//   }
-//   delete_Class.addEventListener('click', (e) => {
-//       console.log(e.target.id);
-//   });
-// const deleteID = delete_Class.id;
-// // new_data(deleteID);
-// // awaitRecipeDetails(deleteID);
-// });
+
+  ;
+}; // WHEN PAGE LOADS
+
+
+window.addEventListener('DOMContentLoaded', () => {
+  // getFaveImage()
+  fetchQuery('pasta');
+});
 },{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","./views/Tab":"js/views/Tab.js","./models/Search":"js/models/Search.js","./views/base":"js/views/base.js","./models/Fetch":"js/models/Fetch.js","./views/recipeDOM":"js/views/recipeDOM.js","./models/RecipeDetails":"js/models/RecipeDetails.js","./views/addLoader":"js/views/addLoader.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

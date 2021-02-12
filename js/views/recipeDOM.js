@@ -1,5 +1,7 @@
 import { loader } from './addLoader';
 import {element} from './base';
+
+// DISPLAY THE RECIPE IMAGE 
 export const displayRecipeData= (recipeData) => {
     const displayData = recipeData.map (recipe => {
                 return `
@@ -29,16 +31,10 @@ const EmptyDOM = (elem) => {
 }
 
 
-const a = (words) => {
-
-}
-a('thisisthenameofmyschool')
-
 /** DISPLAY RECIPE DETAILS */
 export const recipeDetails_DOM = (recipe)=>{
     loadObj(recipe)
     const creatElem = document.createElement('article');
-    // creatElem.classList.add('details_container')
     creatElem.innerHTML = `
     <div class="image_container">
     <img src=${recipe.image_url} alt="heart">
@@ -78,11 +74,7 @@ export const recipeDetails_DOM = (recipe)=>{
         
     }
 }
-
-
-// export const clearDetails = (details,child)=> {
-    // }
-    
+    // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
     const saved_Ingredient = (data) => {
         const savedIngredient = data.ingredients.map(data => {
             return `<li>${data}</li>`
@@ -90,43 +82,69 @@ export const recipeDetails_DOM = (recipe)=>{
         return savedIngredient;
     };
     
-
+    /** ADDING EACH RECIPE IMAGE AS FAVE AND ADDING TO THE LOCAL STORAGE */
+    // ARRAY TO DATA TO LOCAL STORAGE
     let localStorageArr = [];
+
      export const loadObj= (data)=> {
         element.detailSection.addEventListener('click', (e) => {
             const targetID = e.target.id;
+
             const delete_Class = document.querySelector('.delete');
+
             if(targetID){
                delete_Class.classList.add('visible');
-            };
+               
+               delete_Class.addEventListener('click', (e) => {
+                                      
+                   const deleteID = delete_Class.id;
 
-            delete_Class.addEventListener('click', (e) => {
-                const deleteID = delete_Class.id;
-                if(data.recipe_id === deleteID){
-                    // faveDOM(data);
-                    localStorageArr = [...localStorageArr,data];
-                    console.log(localStorageArr);
+                   // GETTING THE RECIPE OBJECT OF THE SELECTED RECIPE IMAGE DATAILS
+                   if(data.recipe_id === deleteID){
+                    localStorageArr = new set([...localStorageArr,data]);
+                    console.log(localStorageArr)
+        
+                    // SEND THE ARRAY TO LOCAL STORAGE
                     pushLocalStorage(localStorageArr);
-
+                    
                 }
             });
-            // new_data(deleteID);
-            // awaitRecipeDetails(deleteID);
+            };
+
+
           });
   }
 
-  const pushLocalStorage = (val) => {
-    localStorage.setItem('Fave Recipe', JSON.Stringify(val))
-  }
+//   GETTING THE SELECTED IMAGE ID
 
+// SEND THE ARRAY TO LOCAL STORAGE
+const pushLocalStorage = (val) => {
+    // SEND THE ARRAY TO LOCAL STORAGE
+    localStorage.setItem('faveRecipe', JSON.stringify(val));
+    // if(val){
+    //     localStorage.setItem('faveRecipe', JSON.stringify(''));
+
+    // }
+};
+
+
+ const getFaveImage= ()=> {
+    
+    // RETRIVING THE FROM THE LOCAL STORAGE
+    const faveImage = JSON.parse(localStorage.getItem('faveRecipe'));
+    // console.log(faveImage);
+    faveDOM(faveImage)
+  };
+
+  //   DISPLAYING FAVE RECIPE TO THE DOM FROM LOCAL STORAGE
   const faveDOM = (data) => {
-      const create_Element = document.createElement('ul');
-      create_Element.classList.add('fave_images_container');
-      create_Element.innerHTML = `
-      <li>
-                    <img src=${data.image_url} alt="fave">
+
+    const displayFaveData = data.map(data => {
+        return `
+        <li>
+        <img src=${data.image_url} alt="fave">
                     <div class="delete__container">
-                        <div class="cycle" id='fave__delete'>
+                        <div class="cycle" id='fave__delete' id='data.recipe_id'>
                             <span></span>
                             <span></span>
                             <span></span>
@@ -136,6 +154,12 @@ export const recipeDetails_DOM = (recipe)=>{
                         </div>
                     </div>
                 </li>
-      `
-      element.addFave.appendChild(create_Element);
-  }
+        `
+    }).join('');
+    element.displayFave.innerHTML = displayFaveData;
+
+     window.addEventListener('DOMContentLoaded', () => {
+      getFaveImage()
+ });
+                                        
+  };

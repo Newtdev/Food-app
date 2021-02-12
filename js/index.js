@@ -3,7 +3,7 @@ import Tab from "./views/Tab";
 import SearchTerm from "./models/Search";
 import {element} from './views/base';
 import {get_Details} from './models/Fetch';
-import {displayRecipeData,recipeDetails_DOM,loadObj} from './views/recipeDOM';
+import {displayRecipeData,recipeDetails_DOM,getFaveImage} from './views/recipeDOM';
 import {new_data} from './models/RecipeDetails';
 import {loader,detailsLoader} from './views/addLoader';
 // let searchValue = element.searchQuery;
@@ -58,7 +58,7 @@ element.dataList.addEventListener('click', (e) => {
   }
 });
 const awaitRecipeDetails =  async(id) => {
-  // GET PRODUCT BY ID AND SAVE IN THE APPSTATE
+  // GET PRODUCT BY ID AND SAVE IN THE APP STATE
   appState = await new_data(id);
   let getDetail = get_Details(appState);
   // ADD LOADER 
@@ -68,7 +68,6 @@ const awaitRecipeDetails =  async(id) => {
   recipeDetails_DOM(getDetail);
 
 };
-// const getRE
 
 // ADD THE RECIPE DETAILS CONTAINER IN THE MOBILE VIEW
 const mediaQuery = window.matchMedia("(max-width:768px)")
@@ -80,20 +79,14 @@ const detailsLenght = (e) => {
     // ADD THE RECIPE DETAILS CONTAINER ON CLICK ON THE IMAGE LIST
     element.detailSection.classList.add('hide_page');
     
-}
+};
 }
 
+// WHEN PAGE LOADS
+  window.addEventListener('DOMContentLoaded', () => {
+  // getFaveImage()
+ fetchQuery('pasta')
 
-// element.detailSection.addEventListener('click', (e) => {
-//   const targetID = e.target.id;
-//   const delete_Class = document.querySelector('.delete');
-//   if(targetID){
-//      delete_Class.classList.add('visible');
-//   }
-//   delete_Class.addEventListener('click', (e) => {
-//       console.log(e.target.id);
-//   });
-// const deleteID = delete_Class.id;
-// // new_data(deleteID);
-// // awaitRecipeDetails(deleteID);
-// });
+
+  });
+
