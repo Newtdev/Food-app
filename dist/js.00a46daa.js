@@ -2955,10 +2955,13 @@ const loadObj = data => {
         const deleteID = delete_Class.id; // GETTING THE RECIPE OBJECT OF THE SELECTED RECIPE IMAGE DATAILS
 
         if (data.recipe_id === deleteID) {
-          localStorageArr = new set([...localStorageArr, data]);
-          console.log(localStorageArr); // SEND THE ARRAY TO LOCAL STORAGE
+          localStorageArr = [...localStorageArr, data]; //    console.log([...localStorageArr]);
+
+          let a = new Set(localStorageArr);
+          console.log(a); // SEND THE ARRAY TO LOCAL STORAGE
 
           pushLocalStorage(localStorageArr);
+          delete_Class.style.visibility = 'hidden';
         }
       });
     }
@@ -2976,6 +2979,8 @@ const pushLocalStorage = val => {
   localStorage.setItem('faveRecipe', JSON.stringify(val)); // if(val){
   //     localStorage.setItem('faveRecipe', JSON.stringify(''));
   // }
+
+  getFaveImage();
 };
 
 const getFaveImage = () => {
@@ -2988,7 +2993,7 @@ const getFaveImage = () => {
 
 const faveDOM = data => {
   const displayFaveData = data.map(data => {
-    return "\n        <li>\n        <img src=".concat(data.image_url, " alt=\"fave\">\n                    <div class=\"delete__container\">\n                        <div class=\"cycle\" id='fave__delete' id='data.recipe_id'>\n                            <span></span>\n                            <span></span>\n                            <span></span>\n                        </div>\n                        <div class=\"delete\">\n                            delete\n                        </div>\n                    </div>\n                </li>\n        ");
+    return "";
   }).join('');
   _base.element.displayFave.innerHTML = displayFaveData;
   window.addEventListener('DOMContentLoaded', () => {

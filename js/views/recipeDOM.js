@@ -96,23 +96,28 @@ export const recipeDetails_DOM = (recipe)=>{
                delete_Class.classList.add('visible');
                
                delete_Class.addEventListener('click', (e) => {
-                                      
+                   
                    const deleteID = delete_Class.id;
-
+                   
                    // GETTING THE RECIPE OBJECT OF THE SELECTED RECIPE IMAGE DATAILS
                    if(data.recipe_id === deleteID){
-                    localStorageArr = new set([...localStorageArr,data]);
-                    console.log(localStorageArr)
-        
-                    // SEND THE ARRAY TO LOCAL STORAGE
-                    pushLocalStorage(localStorageArr);
-                    
+                       localStorageArr = [...localStorageArr,data];
+
+
+                    //    console.log([...localStorageArr]);
+                    let a = new Set(localStorageArr);
+                    console.log(a)
+                       
+                       // SEND THE ARRAY TO LOCAL STORAGE
+                       pushLocalStorage(localStorageArr);
+                       delete_Class.style.visibility = 'hidden';
                 }
             });
             };
 
 
           });
+
   }
 
 //   GETTING THE SELECTED IMAGE ID
@@ -123,8 +128,8 @@ const pushLocalStorage = (val) => {
     localStorage.setItem('faveRecipe', JSON.stringify(val));
     // if(val){
     //     localStorage.setItem('faveRecipe', JSON.stringify(''));
-
     // }
+    getFaveImage()
 };
 
 
@@ -140,21 +145,7 @@ const pushLocalStorage = (val) => {
   const faveDOM = (data) => {
 
     const displayFaveData = data.map(data => {
-        return `
-        <li>
-        <img src=${data.image_url} alt="fave">
-                    <div class="delete__container">
-                        <div class="cycle" id='fave__delete' id='data.recipe_id'>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <div class="delete">
-                            delete
-                        </div>
-                    </div>
-                </li>
-        `
+        return ``
     }).join('');
     element.displayFave.innerHTML = displayFaveData;
 
