@@ -62,7 +62,7 @@ nav,
 }
 .logo h1 {
   display: inline-block;
-  font-size: 30px !important;
+  font-size: 20px !important;
   font-weight: bold;
   color: #f1f1f1;
   font-family: "Stalinist One", cursive;
@@ -270,7 +270,7 @@ form #search {
   margin: 0 auto;
   margin-top: 10px;
   position: relative;
-  margin-bottom: 50px;
+  margin-top: 80px;
 }
 .image_container img {
   height: 100%;
@@ -431,8 +431,6 @@ form #search {
 .fave_images_container > .ingredient__list ul li {
   width: 50%;
   font-size: 18px;
-  background: yellow;
-  justify-self: left;
   list-style-type: none;
   padding: none;
   text-align: left;
@@ -456,6 +454,28 @@ form #search {
 }
 
 @media only screen and (max-width: 768px) {
+  .fave_images_container .ingredient__list {
+    background: red;
+    min-height: 100%;
+  }
+  .fave_images_container .ingredient__list ul {
+    background: green;
+    /* height: 800px; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+  }
+  .fave_images_container > .ingredient__list ul li {
+    font-size: 20px;
+    list-style-type: none;
+    padding: 20px 0;
+    height: 0;
+    text-align: left;
+    justify-self: center;
+  }
 }
 
 .delete__container {
@@ -650,7 +670,8 @@ form #search {
     display: block !important;
     background: linear-gradient(to bottom, #642b73, #c6426e);
     width: 100%;
-    height: 50px;
+    /* height: 50px; */
+    padding-top: 5px;
     z-index: 10;
     box-shadow: 2px 2px 2px #642b73;
     /* display: none !important; */
@@ -662,9 +683,7 @@ form #search {
     justify-content: center;
     align-items: center;
   }
-  .recipe_details_container {
-    columns: 200px 2;
-  }
+
   .mobile_nav {
     width: 100px;
   }
@@ -687,7 +706,7 @@ form #search {
   .mobile_nav span > small,
   #theme small,
   .filter small {
-    font-size: 15px;
+    font-size: 10px;
     font-family: "Open Sans", sans-serif;
     font-weight: 600;
     color: #f1f1f1;

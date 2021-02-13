@@ -956,6 +956,8 @@ function pageOnClicked(id) {
 const openSearchBar = () => {
   _base.element.searchIcon.addEventListener("click", () => {
     _base.element.search.classList.toggle("active");
+
+    _base.element.recipe_image.remove('hide_page');
   });
 };
 
