@@ -75,16 +75,16 @@ export const recipeDetails_DOM = (recipe)=>{
     }
 }
     // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
-    const saved_Ingredient = (data) => {
-        const savedIngredient = data.ingredients.map(data => {
-            return `<li>${data}</li>`
-        }).join('');
-        return savedIngredient;
-    };
+    // const saved_Ingredient = (data) => {
+    //     const savedIngredient = data.ingredients.map(data => {
+    //         return `<li>${data}</li>`
+    //     }).join('');
+    //     return savedIngredient;
+    // };
     
     /** ADDING EACH RECIPE IMAGE AS FAVE AND ADDING TO THE LOCAL STORAGE */
     // ARRAY TO DATA TO LOCAL STORAGE
-    let localStorageArr = [];
+    // let localStorageArr = [];
 
      export const loadObj= (data)=> {
         element.detailSection.addEventListener('click', (e) => {
@@ -101,15 +101,11 @@ export const recipeDetails_DOM = (recipe)=>{
                    
                    // GETTING THE RECIPE OBJECT OF THE SELECTED RECIPE IMAGE DATAILS
                    if(data.recipe_id === deleteID){
-                       localStorageArr = [...localStorageArr,data];
-
-
-                    //    console.log([...localStorageArr]);
-                    let a = new Set(localStorageArr);
-                    console.log(a)
+                    //    localStorageArr = [...localStorageArr,data];
+                    //    localStorageArr = [data];
                        
                        // SEND THE ARRAY TO LOCAL STORAGE
-                       pushLocalStorage(localStorageArr);
+                       pushLocalStorage(data);
                        delete_Class.style.visibility = 'hidden';
                 }
             });
@@ -143,14 +139,33 @@ const pushLocalStorage = (val) => {
 
   //   DISPLAYING FAVE RECIPE TO THE DOM FROM LOCAL STORAGE
   const faveDOM = (data) => {
+      console.log(data)
+    const createDiv = document.createElement('div');
+    createDiv.classList.add('ingredient__list');
+    createDiv.innerHTML = `
+    <h1>Favourite Recipe</h1>
+<small>
+    <h1>${data.title}</h1>
+</small>
+<ul> 
+${saved_Ingredient(data)}
+</ul>
+<small>
+<h1>${data.publisher}</h1>
+</small>
+<button>remove</button>
+`
+element.displayFave.appendChild(createDiv)
+};
 
-    const displayFaveData = data.map(data => {
-        return ``
+// ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
+const saved_Ingredient = (data) => {
+    const savedIngredient = data.ingredients.map(data => {
+        return `<li>${data}</li>`
     }).join('');
-    element.displayFave.innerHTML = displayFaveData;
+    return savedIngredient;
+};
 
-     window.addEventListener('DOMContentLoaded', () => {
-      getFaveImage()
- });
-                                        
-  };
+window.addEventListener('DOMContentLoaded', () => {
+//  getFaveImage()
+});

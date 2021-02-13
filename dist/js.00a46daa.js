@@ -2928,21 +2928,19 @@ const recipeDetails_DOM = recipe => {
     _base.element.detailSection.appendChild(creatElem);
   }
 }; // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
+// const saved_Ingredient = (data) => {
+//     const savedIngredient = data.ingredients.map(data => {
+//         return `<li>${data}</li>`
+//     }).join('');
+//     return savedIngredient;
+// };
+
+/** ADDING EACH RECIPE IMAGE AS FAVE AND ADDING TO THE LOCAL STORAGE */
+// ARRAY TO DATA TO LOCAL STORAGE
+// let localStorageArr = [];
 
 
 exports.recipeDetails_DOM = recipeDetails_DOM;
-
-const saved_Ingredient = data => {
-  const savedIngredient = data.ingredients.map(data => {
-    return "<li>".concat(data, "</li>");
-  }).join('');
-  return savedIngredient;
-};
-/** ADDING EACH RECIPE IMAGE AS FAVE AND ADDING TO THE LOCAL STORAGE */
-// ARRAY TO DATA TO LOCAL STORAGE
-
-
-let localStorageArr = [];
 
 const loadObj = data => {
   _base.element.detailSection.addEventListener('click', e => {
@@ -2955,12 +2953,10 @@ const loadObj = data => {
         const deleteID = delete_Class.id; // GETTING THE RECIPE OBJECT OF THE SELECTED RECIPE IMAGE DATAILS
 
         if (data.recipe_id === deleteID) {
-          localStorageArr = [...localStorageArr, data]; //    console.log([...localStorageArr]);
-
-          let a = new Set(localStorageArr);
-          console.log(a); // SEND THE ARRAY TO LOCAL STORAGE
-
-          pushLocalStorage(localStorageArr);
+          //    localStorageArr = [...localStorageArr,data];
+          //    localStorageArr = [data];
+          // SEND THE ARRAY TO LOCAL STORAGE
+          pushLocalStorage(data);
           delete_Class.style.visibility = 'hidden';
         }
       });
@@ -2992,14 +2988,24 @@ const getFaveImage = () => {
 
 
 const faveDOM = data => {
-  const displayFaveData = data.map(data => {
-    return "";
+  console.log(data);
+  const createDiv = document.createElement('div');
+  createDiv.classList.add('ingredient__list');
+  createDiv.innerHTML = "\n    <h1>Favourite Recipe</h1>\n<small>\n    <h1>".concat(data.title, "</h1>\n</small>\n<ul> \n").concat(saved_Ingredient(data), "\n</ul>\n<small>\n<h1>").concat(data.publisher, "</h1>\n</small>\n<button>remove</button>\n");
+
+  _base.element.displayFave.appendChild(createDiv);
+}; // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
+
+
+const saved_Ingredient = data => {
+  const savedIngredient = data.ingredients.map(data => {
+    return "<li>".concat(data, "</li>");
   }).join('');
-  _base.element.displayFave.innerHTML = displayFaveData;
-  window.addEventListener('DOMContentLoaded', () => {
-    getFaveImage();
-  });
+  return savedIngredient;
 };
+
+window.addEventListener('DOMContentLoaded', () => {//  getFaveImage()
+});
 },{"./addLoader":"js/views/addLoader.js","./base":"js/views/base.js"}],"js/models/RecipeDetails.js":[function(require,module,exports) {
 "use strict";
 

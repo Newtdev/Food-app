@@ -402,6 +402,10 @@ form #search {
   align-items: center;
   justify-content: space-between;
 }
+.ingredient__list > h1 {
+  font-size: 20px;
+  font-family: "Stalinist One", cursive;
+}
 .ingredient__list small {
   display: inline-block;
   padding: 10px 20px;
@@ -420,9 +424,17 @@ form #search {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin-top: 50px;
+}
+.fave_images_container > .ingredient__list ul li {
+  width: 100%;
+  background: yellow;
+  padding: none;
+  list-style-type: none;
+  font-size: 18px;
+  margin-left: 20px;
 }
 .fave_images_container button {
   padding: 10px 15px;
