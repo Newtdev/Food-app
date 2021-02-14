@@ -74,13 +74,26 @@ const mediaQuery = window.matchMedia("(max-width:768px)")
 const detailsLenght = (e) => {
   if(e.matches){
     // REMOVE THE RECIPE IMAGE CONTAINER ON CLICK ON THE IMAGE LIST
-    element.recipe_image.remove('hide_page');
     
     // ADD THE RECIPE DETAILS CONTAINER ON CLICK ON THE IMAGE LIST
-    element.detailSection.classList.add('hide_page');
-    
-};
+    element.detailSection.classList.add('add__transform');
+  };
 }
+document.querySelector('.home').addEventListener('click', e => {
+  const targetIcon = e.target;
+  if(targetIcon.classList.contains('home__image')){
+
+    element.detailSection.classList.remove('add__transform');
+
+  }
+});
+document.querySelector('.heart').addEventListener('click', e => {
+  const targetIcon = e.target.closest('.fa-heart');
+  if(targetIcon){
+    element.detailSection.classList.remove('add__transform');
+  }
+  });
+  
 
 // WHEN PAGE LOADS
   window.addEventListener('DOMContentLoaded', () => {

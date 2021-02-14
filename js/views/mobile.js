@@ -4,11 +4,15 @@ const detailsLenght = (e) => {
     if(e.matches){
     const recipeContainerHeight= element.dataList.getBoundingClientRect().height;
     // element.leftContainer.style.height= `${recipeContainerHeight}`;
-    const leftHeight= element.leftContainer.getBoundingClientRect().height + 100;
+    // const leftHeight= element.leftContainer.getBoundingClientRect().height + 20;
+
+    window.pageYOffset();
+    console.log(window.pageYOffset);
 }
 }
-mediaQuery.addListener(detailsLenght(mediaQuery));
 
 export const addEvent = () => {
-    // element.detailSection.classList.add('hide_page')
+    let a = document.querySelector('body')
+    console.log(a)
 }
+mediaQuery.addListener(detailsLenght(mediaQuery));

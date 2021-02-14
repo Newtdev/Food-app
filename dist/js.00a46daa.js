@@ -955,9 +955,8 @@ function pageOnClicked(id) {
 
 const openSearchBar = () => {
   _base.element.searchIcon.addEventListener("click", () => {
-    _base.element.search.classList.toggle("active");
+    _base.element.search.classList.toggle("active"); // element.recipe_image.add('hide_page');
 
-    _base.element.recipe_image.remove('hide_page');
   });
 };
 
@@ -2990,9 +2989,8 @@ const getFaveImage = () => {
 
 
 const faveDOM = data => {
-  console.log(data);
   const createDiv = document.createElement('div');
-  createDiv.classList.add('ingredient__list');
+  createDiv.classList.add('fave__list');
   createDiv.innerHTML = "\n    <h1>Favourite Recipe</h1>\n<small>\n    <h1>".concat(data.title, "</h1>\n</small>\n<ul> \n").concat(saved_Ingredient(data), "\n</ul>\n<small>\n<h1>").concat(data.publisher, "</h1>\n</small>\n<button>remove</button>\n");
 
   _base.element.displayFave.appendChild(createDiv);
@@ -3126,15 +3124,27 @@ const mediaQuery = window.matchMedia("(max-width:768px)");
 const detailsLenght = e => {
   if (e.matches) {
     // REMOVE THE RECIPE IMAGE CONTAINER ON CLICK ON THE IMAGE LIST
-    _base.element.recipe_image.remove('hide_page'); // ADD THE RECIPE DETAILS CONTAINER ON CLICK ON THE IMAGE LIST
-
-
-    _base.element.detailSection.classList.add('hide_page');
+    // ADD THE RECIPE DETAILS CONTAINER ON CLICK ON THE IMAGE LIST
+    _base.element.detailSection.classList.add('add__transform');
   }
 
   ;
-}; // WHEN PAGE LOADS
+};
 
+document.querySelector('.home').addEventListener('click', e => {
+  const targetIcon = e.target;
+
+  if (targetIcon.classList.contains('home__image')) {
+    _base.element.detailSection.classList.remove('add__transform');
+  }
+});
+document.querySelector('.heart').addEventListener('click', e => {
+  const targetIcon = e.target.closest('.fa-heart');
+
+  if (targetIcon) {
+    _base.element.detailSection.classList.remove('add__transform');
+  }
+}); // WHEN PAGE LOADS
 
 window.addEventListener('DOMContentLoaded', () => {
   // getFaveImage()

@@ -139,9 +139,8 @@ const pushLocalStorage = (val) => {
 
   //   DISPLAYING FAVE RECIPE TO THE DOM FROM LOCAL STORAGE
   const faveDOM = (data) => {
-      console.log(data)
     const createDiv = document.createElement('div');
-    createDiv.classList.add('ingredient__list');
+    createDiv.classList.add('fave__list');
     createDiv.innerHTML = `
     <h1>Favourite Recipe</h1>
 <small>

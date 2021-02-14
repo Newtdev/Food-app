@@ -41,7 +41,7 @@ function pageOnClicked(id) {
 const openSearchBar = () => {
   element.searchIcon.addEventListener("click", () => {
     element.search.classList.toggle("active");
-    element.recipe_image.remove('hide_page');
+    // element.recipe_image.add('hide_page');
 
   });
 };
