@@ -7,6 +7,7 @@ export const element = {
   search : document.querySelector(".search"),
   small : document.querySelectorAll("small"),
   dataList: document.querySelector('.recipe__container'),
+  dataContainer: document.querySelector('.recipe_container'),
   recipeLoader: document.getElementById('recipe_loader'),
   recipeList: document.querySelectorAll('.recipe__container li'),
   leftContainer: document.querySelector('.left_container'),

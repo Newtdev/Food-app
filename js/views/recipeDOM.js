@@ -149,9 +149,6 @@ const pushLocalStorage = (val) => {
 <ul> 
 ${saved_Ingredient(data)}
 </ul>
-<small>
-<h1>${data.publisher}</h1>
-</small>
 <button>remove</button>
 `
 element.displayFave.appendChild(createDiv)

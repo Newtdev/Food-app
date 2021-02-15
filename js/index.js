@@ -6,6 +6,7 @@ import {get_Details} from './models/Fetch';
 import {displayRecipeData,recipeDetails_DOM,getFaveImage} from './views/recipeDOM';
 import {new_data} from './models/RecipeDetails';
 import {loader,detailsLoader} from './views/addLoader';
+import mobile from './views/mobile'
 // let searchValue = element.searchQuery;
 let appState = {}
 
@@ -74,6 +75,7 @@ const mediaQuery = window.matchMedia("(max-width:768px)")
 const detailsLenght = (e) => {
   if(e.matches){
     // REMOVE THE RECIPE IMAGE CONTAINER ON CLICK ON THE IMAGE LIST
+    document.querySelector('.recipe_container').classList.remove('hide_page')
     
     // ADD THE RECIPE DETAILS CONTAINER ON CLICK ON THE IMAGE LIST
     element.detailSection.classList.add('add__transform');
@@ -98,7 +100,7 @@ document.querySelector('.heart').addEventListener('click', e => {
 // WHEN PAGE LOADS
   window.addEventListener('DOMContentLoaded', () => {
   // getFaveImage()
- fetchQuery('pasta')
+//  fetchQuery('pasta')
 
 
   });

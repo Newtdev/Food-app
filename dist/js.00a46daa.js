@@ -884,6 +884,7 @@ const element = {
   search: document.querySelector(".search"),
   small: document.querySelectorAll("small"),
   dataList: document.querySelector('.recipe__container'),
+  dataContainer: document.querySelector('.recipe_container'),
   recipeLoader: document.getElementById('recipe_loader'),
   recipeList: document.querySelectorAll('.recipe__container li'),
   leftContainer: document.querySelector('.left_container'),
@@ -2991,7 +2992,7 @@ const getFaveImage = () => {
 const faveDOM = data => {
   const createDiv = document.createElement('div');
   createDiv.classList.add('fave__list');
-  createDiv.innerHTML = "\n    <h1>Favourite Recipe</h1>\n<small>\n    <h1>".concat(data.title, "</h1>\n</small>\n<ul> \n").concat(saved_Ingredient(data), "\n</ul>\n<small>\n<h1>").concat(data.publisher, "</h1>\n</small>\n<button>remove</button>\n");
+  createDiv.innerHTML = "\n    <h1>Favourite Recipe</h1>\n<small>\n    <h1>".concat(data.title, "</h1>\n</small>\n<ul> \n").concat(saved_Ingredient(data), "\n</ul>\n<button>remove</button>\n");
 
   _base.element.displayFave.appendChild(createDiv);
 }; // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
@@ -3036,7 +3037,21 @@ const new_data = async id => {
 
 
 exports.new_data = new_data;
-},{"./Fetch":"js/models/Fetch.js","axios":"node_modules/axios/index.js"}],"js/index.js":[function(require,module,exports) {
+},{"./Fetch":"js/models/Fetch.js","axios":"node_modules/axios/index.js"}],"js/views/mobile.js":[function(require,module,exports) {
+"use strict";
+
+var _base = require("./base");
+
+const mediaQuery = window.matchMedia("(max-width:768px)");
+
+const detailsLenght = e => {
+  if (e.matches) {// element.leftContainer.style.height= `${recipeContainerHeight}`;
+    // const leftHeight= element.lef
+  }
+};
+
+mediaQuery.addListener(detailsLenght(mediaQuery));
+},{"./base":"js/views/base.js"}],"js/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3059,6 +3074,8 @@ var _recipeDOM = require("./views/recipeDOM");
 var _RecipeDetails = require("./models/RecipeDetails");
 
 var _addLoader = require("./views/addLoader");
+
+var _mobile = _interopRequireDefault(require("./views/mobile"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3124,7 +3141,8 @@ const mediaQuery = window.matchMedia("(max-width:768px)");
 const detailsLenght = e => {
   if (e.matches) {
     // REMOVE THE RECIPE IMAGE CONTAINER ON CLICK ON THE IMAGE LIST
-    // ADD THE RECIPE DETAILS CONTAINER ON CLICK ON THE IMAGE LIST
+    document.querySelector('.recipe_container').classList.remove('hide_page'); // ADD THE RECIPE DETAILS CONTAINER ON CLICK ON THE IMAGE LIST
+
     _base.element.detailSection.classList.add('add__transform');
   }
 
@@ -3146,11 +3164,10 @@ document.querySelector('.heart').addEventListener('click', e => {
   }
 }); // WHEN PAGE LOADS
 
-window.addEventListener('DOMContentLoaded', () => {
-  // getFaveImage()
-  fetchQuery('pasta');
+window.addEventListener('DOMContentLoaded', () => {// getFaveImage()
+  //  fetchQuery('pasta')
 });
-},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","./views/Tab":"js/views/Tab.js","./models/Search":"js/models/Search.js","./views/base":"js/views/base.js","./models/Fetch":"js/models/Fetch.js","./views/recipeDOM":"js/views/recipeDOM.js","./models/RecipeDetails":"js/models/RecipeDetails.js","./views/addLoader":"js/views/addLoader.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","./views/Tab":"js/views/Tab.js","./models/Search":"js/models/Search.js","./views/base":"js/views/base.js","./models/Fetch":"js/models/Fetch.js","./views/recipeDOM":"js/views/recipeDOM.js","./models/RecipeDetails":"js/models/RecipeDetails.js","./views/addLoader":"js/views/addLoader.js","./views/mobile":"js/views/mobile.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -3178,7 +3195,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49679" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52435" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
