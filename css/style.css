@@ -761,11 +761,14 @@ form #search {
   }
   .recipe__label h1,
   .calories h1 {
-    font-size: 20px;
+    font-size: 18px;
   }
   .total__nutrient h1,
   .ingredient__list h1 {
-    font-size: 20px;
+    font-size: 18px;
+  }
+  .image_container {
+    height: 250px;
   }
 }
 .dev__name {
