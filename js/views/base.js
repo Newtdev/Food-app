@@ -21,7 +21,8 @@ export const element = {
   detailsCycle: document.getElementById('details__cycle'),
   addFave: document.getElementById('fave_recipe'),
   displayFave: document.querySelector('.fave_images_container'),
-  delete_Class: document.querySelector('.delete')
+  delete_Class: document.querySelector('.delete'),
+  fave__list: document.querySelector('.fave__list')
 
 
 };

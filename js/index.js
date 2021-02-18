@@ -100,7 +100,7 @@ document.querySelector('.heart').addEventListener('click', e => {
 // WHEN PAGE LOADS
   window.addEventListener('DOMContentLoaded', () => {
   // getFaveImage()
-//  fetchQuery('pasta')
+ fetchQuery('pasta')
 
 
   });

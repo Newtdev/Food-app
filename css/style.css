@@ -391,6 +391,12 @@ form #search {
   height: 100%;
   width: 100%;
 }
+.fave_images_container h1 {
+  font-size: 20px;
+  font-family: "Stalinist One", cursive;
+  color: #642b73;
+  text-align: center;
+}
 .fave_images_container .fave__list {
   /* background: red; */
   height: fit-content;
@@ -399,11 +405,6 @@ form #search {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-}
-.fave__list > h1 {
-  font-size: 20px;
-  font-family: "Stalinist One", cursive;
-  color: #642b73;
 }
 .fave__list small {
   display: inline-block;

@@ -898,7 +898,8 @@ const element = {
   detailsCycle: document.getElementById('details__cycle'),
   addFave: document.getElementById('fave_recipe'),
   displayFave: document.querySelector('.fave_images_container'),
-  delete_Class: document.querySelector('.delete')
+  delete_Class: document.querySelector('.delete'),
+  fave__list: document.querySelector('.fave__list')
 }; // console.log(element.searchQuery);
 // https://github.com/Newtdev/Food-app.git
 
@@ -2939,10 +2940,10 @@ const recipeDetails_DOM = recipe => {
 
 /** ADDING EACH RECIPE IMAGE AS FAVE AND ADDING TO THE LOCAL STORAGE */
 // ARRAY TO DATA TO LOCAL STORAGE
-// let localStorageArr = [];
 
 
 exports.recipeDetails_DOM = recipeDetails_DOM;
+let localStorageArr = [];
 
 const loadObj = data => {
   _base.element.detailSection.addEventListener('click', e => {
@@ -2955,10 +2956,9 @@ const loadObj = data => {
         const deleteID = delete_Class.id; // GETTING THE RECIPE OBJECT OF THE SELECTED RECIPE IMAGE DATAILS
 
         if (data.recipe_id === deleteID) {
-          //    localStorageArr = [...localStorageArr,data];
-          //    localStorageArr = [data];
-          // SEND THE ARRAY TO LOCAL STORAGE
-          pushLocalStorage(data);
+          localStorageArr = [data]; // SEND THE ARRAY TO LOCAL STORAGE
+
+          pushLocalStorage(localStorageArr);
           delete_Class.style.visibility = 'hidden';
         }
       });
@@ -2974,10 +2974,7 @@ exports.loadObj = loadObj;
 
 const pushLocalStorage = val => {
   // SEND THE ARRAY TO LOCAL STORAGE
-  localStorage.setItem('faveRecipe', JSON.stringify(val)); // if(val){
-  //     localStorage.setItem('faveRecipe', JSON.stringify(''));
-  // }
-
+  localStorage.setItem('faveRecipe', JSON.stringify(val));
   getFaveImage();
 };
 
@@ -2990,11 +2987,23 @@ const getFaveImage = () => {
 
 
 const faveDOM = data => {
-  const createDiv = document.createElement('div');
-  createDiv.classList.add('fave__list');
-  createDiv.innerHTML = "\n    <h1>Favourite Recipe</h1>\n<small>\n    <h1>".concat(data.title, "</h1>\n</small>\n<ul> \n").concat(saved_Ingredient(data), "\n</ul>\n<button>remove</button>\n");
-
-  _base.element.displayFave.appendChild(createDiv);
+  const dataArr = data.map(ingredientList => {
+    //   console.log(ingredientList.ingredients)
+    return " \n          <small>\n          <h1>".concat(ingredientList.title, "</h1>\n      </small>\n      <ul>\n      ").concat(saved_Ingredient(ingredientList), "\n  </ul>\n  <small>\n      <a href=").concat(ingredientList.source_url, ">source</a>\n  </small>");
+  }).join('');
+  _base.element.fave__list.innerHTML = dataArr; //     const createDiv = document.createElement('div');
+  //     createDiv.classList.add('fave__list');
+  //     createDiv.innerHTML = `
+  //     <h1>Favourite Recipe</h1>
+  // <small>
+  //     <h1>${data.title}</h1>
+  // </small>
+  // <ul> 
+  // ${saved_Ingredient(data)}
+  // </ul>
+  // <button>remove</button>
+  // `
+  // element.displayFave.appendChild(createDiv)
 }; // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
 
 
@@ -3164,8 +3173,9 @@ document.querySelector('.heart').addEventListener('click', e => {
   }
 }); // WHEN PAGE LOADS
 
-window.addEventListener('DOMContentLoaded', () => {// getFaveImage()
-  //  fetchQuery('pasta')
+window.addEventListener('DOMContentLoaded', () => {
+  // getFaveImage()
+  fetchQuery('pasta');
 });
 },{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","./views/Tab":"js/views/Tab.js","./models/Search":"js/models/Search.js","./views/base":"js/views/base.js","./models/Fetch":"js/models/Fetch.js","./views/recipeDOM":"js/views/recipeDOM.js","./models/RecipeDetails":"js/models/RecipeDetails.js","./views/addLoader":"js/views/addLoader.js","./views/mobile":"js/views/mobile.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -3195,7 +3205,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52435" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49782" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

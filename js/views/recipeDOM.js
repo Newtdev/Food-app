@@ -83,8 +83,9 @@ export const recipeDetails_DOM = (recipe)=>{
     // };
     
     /** ADDING EACH RECIPE IMAGE AS FAVE AND ADDING TO THE LOCAL STORAGE */
+    
     // ARRAY TO DATA TO LOCAL STORAGE
-    // let localStorageArr = [];
+    let localStorageArr = [];
 
      export const loadObj= (data)=> {
         element.detailSection.addEventListener('click', (e) => {
@@ -101,11 +102,10 @@ export const recipeDetails_DOM = (recipe)=>{
                    
                    // GETTING THE RECIPE OBJECT OF THE SELECTED RECIPE IMAGE DATAILS
                    if(data.recipe_id === deleteID){
-                    //    localStorageArr = [...localStorageArr,data];
-                    //    localStorageArr = [data];
+                       localStorageArr = [data];
                        
                        // SEND THE ARRAY TO LOCAL STORAGE
-                       pushLocalStorage(data);
+                       pushLocalStorage(localStorageArr);
                        delete_Class.style.visibility = 'hidden';
                 }
             });
@@ -122,9 +122,6 @@ export const recipeDetails_DOM = (recipe)=>{
 const pushLocalStorage = (val) => {
     // SEND THE ARRAY TO LOCAL STORAGE
     localStorage.setItem('faveRecipe', JSON.stringify(val));
-    // if(val){
-    //     localStorage.setItem('faveRecipe', JSON.stringify(''));
-    // }
     getFaveImage()
 };
 
@@ -139,19 +136,34 @@ const pushLocalStorage = (val) => {
 
   //   DISPLAYING FAVE RECIPE TO THE DOM FROM LOCAL STORAGE
   const faveDOM = (data) => {
-    const createDiv = document.createElement('div');
-    createDiv.classList.add('fave__list');
-    createDiv.innerHTML = `
-    <h1>Favourite Recipe</h1>
-<small>
-    <h1>${data.title}</h1>
-</small>
-<ul> 
-${saved_Ingredient(data)}
-</ul>
-<button>remove</button>
-`
-element.displayFave.appendChild(createDiv)
+      const dataArr= data.map(ingredientList => {
+        //   console.log(ingredientList.ingredients)
+          return ` 
+          <small>
+          <h1>${ingredientList.title}</h1>
+      </small>
+      <ul>
+      ${saved_Ingredient(ingredientList)}
+  </ul>
+  <small>
+      <a href=${ingredientList.source_url}>source</a>
+  </small>`
+      }).join('')
+      element.fave__list.innerHTML= dataArr;
+
+//     const createDiv = document.createElement('div');
+//     createDiv.classList.add('fave__list');
+//     createDiv.innerHTML = `
+//     <h1>Favourite Recipe</h1>
+// <small>
+//     <h1>${data.title}</h1>
+// </small>
+// <ul> 
+// ${saved_Ingredient(data)}
+// </ul>
+// <button>remove</button>
+// `
+// element.displayFave.appendChild(createDiv)
 };
 
 // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
