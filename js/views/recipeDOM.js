@@ -150,20 +150,6 @@ const pushLocalStorage = (val) => {
   </small>`
       }).join('')
       element.fave__list.innerHTML= dataArr;
-
-//     const createDiv = document.createElement('div');
-//     createDiv.classList.add('fave__list');
-//     createDiv.innerHTML = `
-//     <h1>Favourite Recipe</h1>
-// <small>
-//     <h1>${data.title}</h1>
-// </small>
-// <ul> 
-// ${saved_Ingredient(data)}
-// </ul>
-// <button>remove</button>
-// `
-// element.displayFave.appendChild(createDiv)
 };
 
 // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA

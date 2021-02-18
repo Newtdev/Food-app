@@ -2991,19 +2991,7 @@ const faveDOM = data => {
     //   console.log(ingredientList.ingredients)
     return " \n          <small>\n          <h1>".concat(ingredientList.title, "</h1>\n      </small>\n      <ul>\n      ").concat(saved_Ingredient(ingredientList), "\n  </ul>\n  <small>\n      <a href=").concat(ingredientList.source_url, ">source</a>\n  </small>");
   }).join('');
-  _base.element.fave__list.innerHTML = dataArr; //     const createDiv = document.createElement('div');
-  //     createDiv.classList.add('fave__list');
-  //     createDiv.innerHTML = `
-  //     <h1>Favourite Recipe</h1>
-  // <small>
-  //     <h1>${data.title}</h1>
-  // </small>
-  // <ul> 
-  // ${saved_Ingredient(data)}
-  // </ul>
-  // <button>remove</button>
-  // `
-  // element.displayFave.appendChild(createDiv)
+  _base.element.fave__list.innerHTML = dataArr;
 }; // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
 
 

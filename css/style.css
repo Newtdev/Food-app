@@ -413,6 +413,7 @@ form #search {
   margin: 0 auto;
   margin-top: 39px;
 }
+
 .fave__list small h1 {
   font-family: "Roboto", sans-serif;
   font-size: 25px;
@@ -438,8 +439,18 @@ form #search {
   margin-top: 2px;
   color: #c6426e;
 }
+small a {
+  font-size: 25px;
+  color: #fff;
+  text-decoration: none;
+}
+small a:hover {
+  text-decoration: underline;
+}
 .fave_images_container button {
+  display: block;
   padding: 10px 15px;
+  margin: 0 auto;
   margin-top: 50px;
   background-color: #642b73;
   border: none;
@@ -457,10 +468,9 @@ form #search {
 
 @media only screen and (max-width: 768px) {
   .fav_recipe {
-    /* position: relative; */
+    position: relative;
     grid-area: right;
     border-left: 1px solid #ccc;
-    background-color: yellow;
   }
 
   .fave_images_container .fave__list {
@@ -468,7 +478,6 @@ form #search {
     min-height: 500px;
   }
   .fave_images_container .fave__list ul {
-    background: green;
     min-height: 200px !important ;
     width: 100%;
     display: flex;
@@ -478,9 +487,9 @@ form #search {
     margin-top: 0;
   }
   .fave_images_container > .fave__list ul li {
-    font-size: 20px;
+    font-size: 18px;
     list-style-type: none;
-    padding: 20px 0;
+    padding: 22px 0;
     height: 0;
     text-align: left;
     justify-self: center;
@@ -526,7 +535,6 @@ form #search {
 }
 .fav_recipe_details {
   position: absolute;
-  background: red;
   top: 0;
   right: 0;
   height: 100%;
