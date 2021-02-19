@@ -33,7 +33,7 @@ const EmptyDOM = (elem) => {
 
 /** DISPLAY RECIPE DETAILS */
 export const recipeDetails_DOM = (recipe)=>{
-    loadObj(recipe)
+    loadObj(recipe);
     const creatElem = document.createElement('article');
     creatElem.innerHTML = `
     <div class="image_container">
@@ -74,13 +74,6 @@ export const recipeDetails_DOM = (recipe)=>{
         
     }
 }
-    // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
-    // const saved_Ingredient = (data) => {
-    //     const savedIngredient = data.ingredients.map(data => {
-    //         return `<li>${data}</li>`
-    //     }).join('');
-    //     return savedIngredient;
-    // };
     
     /** ADDING EACH RECIPE IMAGE AS FAVE AND ADDING TO THE LOCAL STORAGE */
     
@@ -103,9 +96,13 @@ export const recipeDetails_DOM = (recipe)=>{
                    // GETTING THE RECIPE OBJECT OF THE SELECTED RECIPE IMAGE DATAILS
                    if(data.recipe_id === deleteID){
                        localStorageArr = [data];
+
+                    clearFaveList(localStorageArr)
                        
                        // SEND THE ARRAY TO LOCAL STORAGE
                        pushLocalStorage(localStorageArr);
+
+                    //    remove the delete button
                        delete_Class.style.visibility = 'hidden';
                 }
             });
@@ -115,6 +112,16 @@ export const recipeDetails_DOM = (recipe)=>{
           });
 
   }
+  
+// const clearFaveList = (arr) => {
+//     element.clearButton.addEventListener('click',(e) => {
+//         const a = arr.pop();
+//         // delete from the array that house the object
+//         // remove the child element containing the list
+//     })
+    
+
+// }
 
 //   GETTING THE SELECTED IMAGE ID
 
@@ -122,22 +129,18 @@ export const recipeDetails_DOM = (recipe)=>{
 const pushLocalStorage = (val) => {
     // SEND THE ARRAY TO LOCAL STORAGE
     localStorage.setItem('faveRecipe', JSON.stringify(val));
-    getFaveImage()
+    getFavelist();
+    faveDOM(getFavelist());
 };
 
-
- const getFaveImage= ()=> {
-    
+ const getFavelist= ()=> {
     // RETRIVING THE FROM THE LOCAL STORAGE
-    const faveImage = JSON.parse(localStorage.getItem('faveRecipe'));
-    // console.log(faveImage);
-    faveDOM(faveImage)
+   return localStorage.getItem('faveRecipe') ? JSON.parse(localStorage.getItem('faveRecipe')) : [];
   };
 
   //   DISPLAYING FAVE RECIPE TO THE DOM FROM LOCAL STORAGE
   const faveDOM = (data) => {
       const dataArr= data.map(ingredientList => {
-        //   console.log(ingredientList.ingredients)
           return ` 
           <small>
           <h1>${ingredientList.title}</h1>
@@ -146,8 +149,12 @@ const pushLocalStorage = (val) => {
       ${saved_Ingredient(ingredientList)}
   </ul>
   <small>
-      <a href=${ingredientList.source_url}>source</a>
-  </small>`
+      <a href=${ingredientList.source_url} target="blank">source</a>
+  </small>
+  <button>clear</button>
+
+  
+  `
       }).join('')
       element.fave__list.innerHTML= dataArr;
 };
@@ -160,6 +167,9 @@ const saved_Ingredient = (data) => {
     return savedIngredient;
 };
 
+
+/**DISPLAY FAVE RECIPE LIST WHEN PAGE LOADS */
 window.addEventListener('DOMContentLoaded', () => {
 //  getFaveImage()
 });
+

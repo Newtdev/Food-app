@@ -25,12 +25,14 @@ export const queryValue = () => {
 
     //   ADD LOADER AND FETCH DATA
     const displayAfterLoader = fetchQuery(element.searchQuery.value)
-  loader(displayAfterLoader);
+
+  loader(displayAfterLoader,element.recipeLoader);
 
   
 }
  };
  
+/**RECIPE DETAILS  */
 //  GET ALL DATA FROM THE NEW OBJECTS AND SAVED TO THE APP STATE
 const fetchQuery = async (term) => {
   appState.term = new SearchTerm(term);
@@ -40,8 +42,6 @@ const fetchQuery = async (term) => {
   displayRecipeData(getQuery)
   // return getQuery;
 }
-// fetchQuery("chicken")
-/** UNDERTRIAL */
 
 element.dataList.addEventListener('click', (e) => {
   const targetList = e.target.id;
@@ -58,30 +58,35 @@ element.dataList.addEventListener('click', (e) => {
     
   }
 });
+
+let detailsArr = [];
 const awaitRecipeDetails =  async(id) => {
   // GET PRODUCT BY ID AND SAVE IN THE APP STATE
   appState = await new_data(id);
+  
   let getDetail = get_Details(appState);
-  // ADD LOADER 
-  detailsLoader();
 
-  // ADD TO THE RECIPE DOM TO DISPLAY
-  recipeDetails_DOM(getDetail);
+  // SAVE IN AN ARRAY TO AVOID DISPLAYING TWO DETAILS AT A TIME
+  detailsArr = [getDetail];
+  // // ADD TO THE RECIPE DOM TO DISPLAY
+   loader(detailsArr[0],element.detailsLoader);
+   recipeDetails_DOM(detailsArr[0]);
+  
 
 };
 
-// ADD THE RECIPE DETAILS CONTAINER IN THE MOBILE VIEW
+/**  ADD THE RECIPE DETAILS CONTAINER IN THE MOBILE VIEW */
 const mediaQuery = window.matchMedia("(max-width:768px)")
 const detailsLenght = (e) => {
   if(e.matches){
     // REMOVE THE RECIPE IMAGE CONTAINER ON CLICK ON THE IMAGE LIST
-    document.querySelector('.recipe_container').classList.remove('hide_page')
+    element.dataContainer.classList.remove('hide_page')
     
     // ADD THE RECIPE DETAILS CONTAINER ON CLICK ON THE IMAGE LIST
     element.detailSection.classList.add('add__transform');
   };
 }
-document.querySelector('.home').addEventListener('click', e => {
+element.home.addEventListener('click', e => {
   const targetIcon = e.target;
   if(targetIcon.classList.contains('home__image')){
 
@@ -89,7 +94,7 @@ document.querySelector('.home').addEventListener('click', e => {
 
   }
 });
-document.querySelector('.heart').addEventListener('click', e => {
+element.heart.addEventListener('click', e => {
   const targetIcon = e.target.closest('.fa-heart');
   if(targetIcon){
     element.detailSection.classList.remove('add__transform');
@@ -97,11 +102,9 @@ document.querySelector('.heart').addEventListener('click', e => {
   });
   
 
-// WHEN PAGE LOADS
+/** WHEN PAGE LOADS */
   window.addEventListener('DOMContentLoaded', () => {
   // getFaveImage()
- fetchQuery('pasta')
-
-
+//  fetchQuery('pasta')
   });
 

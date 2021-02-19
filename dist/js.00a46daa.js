@@ -899,7 +899,10 @@ const element = {
   addFave: document.getElementById('fave_recipe'),
   displayFave: document.querySelector('.fave_images_container'),
   delete_Class: document.querySelector('.delete'),
-  fave__list: document.querySelector('.fave__list')
+  fave__list: document.querySelector('.fave__list'),
+  home: document.querySelector('.home'),
+  heart: document.querySelector('.heart'),
+  clearButton: document.querySelector('.fave_images_container button')
 }; // console.log(element.searchQuery);
 // https://github.com/Newtdev/Food-app.git
 
@@ -2849,36 +2852,32 @@ exports.default = SearchTerm;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.detailsLoader = exports.loader = void 0;
+exports.loader = void 0;
 
 var _base = require("./base");
 
 var _recipeDOM = require("./recipeDOM");
 
-const loader = recipeData => {
-  _base.element.recipeLoader.classList.add("hide");
-
+const loader = (recipeData, elem) => {
+  elem.classList.add("hide");
   setTimeout(() => {
-    _base.element.recipeLoader.classList.remove("hide");
-
-    setTimeout(() => {});
+    elem.classList.remove("hide");
+    setTimeout(() => {
+      recipeData;
+    });
   }, 3000);
-};
+}; // export const detailsLoader = () => {
+//     element.detailsLoader.classList.add('hide');
+//     setTimeout(() => {
+//         element.detailsLoader.classList.remove('hide')
+//         setTimeout(() => {
+//         })
+//     },3000)
+// }
+// element.detailsLoader.classList.add('hide');
+
 
 exports.loader = loader;
-
-const detailsLoader = () => {
-  _base.element.detailsLoader.classList.add('hide');
-
-  setTimeout(() => {
-    _base.element.detailsLoader.classList.remove('hide');
-
-    setTimeout(() => {});
-  }, 3000);
-}; // element.detailsLoader.classList.add('hide');
-
-
-exports.detailsLoader = detailsLoader;
 },{"./base":"js/views/base.js","./recipeDOM":"js/views/recipeDOM.js"}],"js/views/recipeDOM.js":[function(require,module,exports) {
 "use strict";
 
@@ -2930,14 +2929,7 @@ const recipeDetails_DOM = recipe => {
 
     _base.element.detailSection.appendChild(creatElem);
   }
-}; // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
-// const saved_Ingredient = (data) => {
-//     const savedIngredient = data.ingredients.map(data => {
-//         return `<li>${data}</li>`
-//     }).join('');
-//     return savedIngredient;
-// };
-
+};
 /** ADDING EACH RECIPE IMAGE AS FAVE AND ADDING TO THE LOCAL STORAGE */
 // ARRAY TO DATA TO LOCAL STORAGE
 
@@ -2956,9 +2948,11 @@ const loadObj = data => {
         const deleteID = delete_Class.id; // GETTING THE RECIPE OBJECT OF THE SELECTED RECIPE IMAGE DATAILS
 
         if (data.recipe_id === deleteID) {
-          localStorageArr = [data]; // SEND THE ARRAY TO LOCAL STORAGE
+          localStorageArr = [data];
+          clearFaveList(localStorageArr); // SEND THE ARRAY TO LOCAL STORAGE
 
-          pushLocalStorage(localStorageArr);
+          pushLocalStorage(localStorageArr); //    remove the delete button
+
           delete_Class.style.visibility = 'hidden';
         }
       });
@@ -2966,7 +2960,14 @@ const loadObj = data => {
 
     ;
   });
-}; //   GETTING THE SELECTED IMAGE ID
+}; // const clearFaveList = (arr) => {
+//     element.clearButton.addEventListener('click',(e) => {
+//         const a = arr.pop();
+//         // delete from the array that house the object
+//         // remove the child element containing the list
+//     })
+// }
+//   GETTING THE SELECTED IMAGE ID
 // SEND THE ARRAY TO LOCAL STORAGE
 
 
@@ -2975,21 +2976,19 @@ exports.loadObj = loadObj;
 const pushLocalStorage = val => {
   // SEND THE ARRAY TO LOCAL STORAGE
   localStorage.setItem('faveRecipe', JSON.stringify(val));
-  getFaveImage();
+  getFavelist();
+  faveDOM(getFavelist());
 };
 
-const getFaveImage = () => {
+const getFavelist = () => {
   // RETRIVING THE FROM THE LOCAL STORAGE
-  const faveImage = JSON.parse(localStorage.getItem('faveRecipe')); // console.log(faveImage);
-
-  faveDOM(faveImage);
+  return localStorage.getItem('faveRecipe') ? JSON.parse(localStorage.getItem('faveRecipe')) : [];
 }; //   DISPLAYING FAVE RECIPE TO THE DOM FROM LOCAL STORAGE
 
 
 const faveDOM = data => {
   const dataArr = data.map(ingredientList => {
-    //   console.log(ingredientList.ingredients)
-    return " \n          <small>\n          <h1>".concat(ingredientList.title, "</h1>\n      </small>\n      <ul>\n      ").concat(saved_Ingredient(ingredientList), "\n  </ul>\n  <small>\n      <a href=").concat(ingredientList.source_url, ">source</a>\n  </small>");
+    return " \n          <small>\n          <h1>".concat(ingredientList.title, "</h1>\n      </small>\n      <ul>\n      ").concat(saved_Ingredient(ingredientList), "\n  </ul>\n  <small>\n      <a href=").concat(ingredientList.source_url, " target=\"blank\">source</a>\n  </small>\n  <button>clear</button>\n\n  \n  ");
   }).join('');
   _base.element.fave__list.innerHTML = dataArr;
 }; // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
@@ -3001,6 +3000,8 @@ const saved_Ingredient = data => {
   }).join('');
   return savedIngredient;
 };
+/**DISPLAY FAVE RECIPE LIST WHEN PAGE LOADS */
+
 
 window.addEventListener('DOMContentLoaded', () => {//  getFaveImage()
 });
@@ -3094,9 +3095,11 @@ const queryValue = () => {
   } else {
     //   ADD LOADER AND FETCH DATA
     const displayAfterLoader = fetchQuery(_base.element.searchQuery.value);
-    (0, _addLoader.loader)(displayAfterLoader);
+    (0, _addLoader.loader)(displayAfterLoader, _base.element.recipeLoader);
   }
-}; //  GET ALL DATA FROM THE NEW OBJECTS AND SAVED TO THE APP STATE
+};
+/**RECIPE DETAILS  */
+//  GET ALL DATA FROM THE NEW OBJECTS AND SAVED TO THE APP STATE
 
 
 exports.queryValue = queryValue;
@@ -3107,10 +3110,7 @@ const fetchQuery = async term => {
   let getQuery = await appState.term.fetchData(); // DISPLAY RECIPE
 
   (0, _recipeDOM.displayRecipeData)(getQuery); // return getQuery;
-}; // fetchQuery("chicken")
-
-/** UNDERTRIAL */
-
+};
 
 _base.element.dataList.addEventListener('click', e => {
   const targetList = e.target.id; // FETCH THE DATA BY THE ID
@@ -3122,15 +3122,19 @@ _base.element.dataList.addEventListener('click', e => {
   }
 });
 
+let detailsArr = [];
+
 const awaitRecipeDetails = async id => {
   // GET PRODUCT BY ID AND SAVE IN THE APP STATE
   appState = await (0, _RecipeDetails.new_data)(id);
-  let getDetail = (0, _Fetch.get_Details)(appState); // ADD LOADER 
+  let getDetail = (0, _Fetch.get_Details)(appState); // SAVE IN AN ARRAY TO AVOID DISPLAYING TWO DETAILS AT A TIME
 
-  (0, _addLoader.detailsLoader)(); // ADD TO THE RECIPE DOM TO DISPLAY
+  detailsArr = [getDetail]; // // ADD TO THE RECIPE DOM TO DISPLAY
 
-  (0, _recipeDOM.recipeDetails_DOM)(getDetail);
-}; // ADD THE RECIPE DETAILS CONTAINER IN THE MOBILE VIEW
+  (0, _addLoader.loader)(detailsArr[0], _base.element.detailsLoader);
+  (0, _recipeDOM.recipeDetails_DOM)(detailsArr[0]);
+};
+/**  ADD THE RECIPE DETAILS CONTAINER IN THE MOBILE VIEW */
 
 
 const mediaQuery = window.matchMedia("(max-width:768px)");
@@ -3138,7 +3142,8 @@ const mediaQuery = window.matchMedia("(max-width:768px)");
 const detailsLenght = e => {
   if (e.matches) {
     // REMOVE THE RECIPE IMAGE CONTAINER ON CLICK ON THE IMAGE LIST
-    document.querySelector('.recipe_container').classList.remove('hide_page'); // ADD THE RECIPE DETAILS CONTAINER ON CLICK ON THE IMAGE LIST
+    _base.element.dataContainer.classList.remove('hide_page'); // ADD THE RECIPE DETAILS CONTAINER ON CLICK ON THE IMAGE LIST
+
 
     _base.element.detailSection.classList.add('add__transform');
   }
@@ -3146,24 +3151,26 @@ const detailsLenght = e => {
   ;
 };
 
-document.querySelector('.home').addEventListener('click', e => {
+_base.element.home.addEventListener('click', e => {
   const targetIcon = e.target;
 
   if (targetIcon.classList.contains('home__image')) {
     _base.element.detailSection.classList.remove('add__transform');
   }
 });
-document.querySelector('.heart').addEventListener('click', e => {
+
+_base.element.heart.addEventListener('click', e => {
   const targetIcon = e.target.closest('.fa-heart');
 
   if (targetIcon) {
     _base.element.detailSection.classList.remove('add__transform');
   }
-}); // WHEN PAGE LOADS
+});
+/** WHEN PAGE LOADS */
 
-window.addEventListener('DOMContentLoaded', () => {
-  // getFaveImage()
-  fetchQuery('pasta');
+
+window.addEventListener('DOMContentLoaded', () => {// getFaveImage()
+  //  fetchQuery('pasta')
 });
 },{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","./views/Tab":"js/views/Tab.js","./models/Search":"js/models/Search.js","./views/base":"js/views/base.js","./models/Fetch":"js/models/Fetch.js","./views/recipeDOM":"js/views/recipeDOM.js","./models/RecipeDetails":"js/models/RecipeDetails.js","./views/addLoader":"js/views/addLoader.js","./views/mobile":"js/views/mobile.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];

@@ -22,8 +22,10 @@ export const element = {
   addFave: document.getElementById('fave_recipe'),
   displayFave: document.querySelector('.fave_images_container'),
   delete_Class: document.querySelector('.delete'),
-  fave__list: document.querySelector('.fave__list')
-
+  fave__list: document.querySelector('.fave__list'),
+  home:document.querySelector('.home'),
+  heart:document.querySelector('.heart'),
+  clearButton: document.querySelector('.fave_images_container button')
 
 };
 // console.log(element.searchQuery);

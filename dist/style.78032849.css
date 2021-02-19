@@ -5,8 +5,13 @@
   padding: 0;
   box-sizing: border-box;
 }
+html {
+  height: 100vh;
+}
 body {
   background-color: #f1f1f1;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 h1 {
   font-family: "Roboto", sans-serif;
@@ -18,7 +23,7 @@ li {
   list-style-type: none;
 }
 main {
-  height: 100vh;
+  min-height: 100%;
   width: 100vw;
   display: grid;
   grid-template-columns: 1.5fr 2fr 1.5fr 1.5fr;
@@ -81,18 +86,6 @@ nav,
   height: 100%;
   width: 100%;
 }
-/* .light,.dark{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-}
-.dark{
-    display: none;
-    transform: rotateY(80deg);
-} */
 
 nav form {
   width: 450px;
@@ -226,10 +219,11 @@ form #search {
 }
 .recipe_container {
   grid-area: left;
+  min-height: 100vh;
 }
 
 .recipe__container {
-  /* grid-area: left; */
+  grid-area: left;
   height: 100%;
   width: 100%;
   background-color: #f1f1f1;
@@ -257,6 +251,7 @@ form #search {
 }
 /* recipe details container styling */
 .recipe_details {
+  height: 100vh;
   width: 100%;
   grid-area: middle;
   background-color: #f1f1f1;
@@ -374,7 +369,7 @@ form #search {
 .ingredient__list ul li {
   font-size: 20px;
   font-weight: lighter;
-  color: #c6426e;
+  color: #642b73;
   font-family: "Open Sans", sans-serif;
   list-style: circle;
   padding: 10px 0;
@@ -437,7 +432,7 @@ form #search {
   padding: 5px 0;
   text-align: left;
   margin-top: 2px;
-  color: #c6426e;
+  color: #642b73;
 }
 small a {
   font-size: 25px;
@@ -540,8 +535,6 @@ small a:hover {
   height: 100%;
   grid-area: right;
   width: 100%;
-  /* transform: translateX(500px); */
-  transition: transform 0.2s ease-in-out;
 }
 .close {
   transform: translateX(0);
@@ -553,7 +546,7 @@ small a:hover {
 @media only screen and (max-width: 768px) {
   main {
     grid-template-columns: 1fr;
-    grid-template-rows: 100%;
+    grid-template-rows: 1fr;
     grid-template-areas:
       "top top top top top"
       "left"
@@ -589,10 +582,7 @@ small a:hover {
   }
 
   .recipe_details {
-    /* grid-area: top; */
-    position: absolute;
-    top: 0;
-    left: 0;
+    grid-area: top;
     width: 100%;
     height: 100%;
     visibility: hidden;

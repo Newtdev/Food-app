@@ -1,22 +1,23 @@
 import {element} from './base';
-import {displayRecipeData} from './recipeDOM';
+import {displayRecipeData,recipeDetails_DOM} from './recipeDOM';
 
 
- export const loader = (recipeData)=> {
-    element.recipeLoader.classList.add("hide");
+ export const loader = (recipeData,elem)=> {
+    elem.classList.add("hide");
     setTimeout(()=> {
-        element.recipeLoader.classList.remove("hide");
+        elem.classList.remove("hide");
         setTimeout(()=> {
+            recipeData;
         })
     },3000);
 };
 
-export const detailsLoader = () => {
-    element.detailsLoader.classList.add('hide');
-    setTimeout(() => {
-        element.detailsLoader.classList.remove('hide')
-        setTimeout(() => {
-        })
-    },3000)
-}
+// export const detailsLoader = () => {
+//     element.detailsLoader.classList.add('hide');
+//     setTimeout(() => {
+//         element.detailsLoader.classList.remove('hide')
+//         setTimeout(() => {
+//         })
+//     },3000)
+// }
 // element.detailsLoader.classList.add('hide');
