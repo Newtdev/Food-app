@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel index.html",
-    "build": "parcel ./js/index.js"
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
   },
   "browserslist": [
     "last 3 and_chr versions",
@@ -14,7 +14,6 @@
     "last 3 ios_saf versions",
     "last 3 safari versions",
     "since 2017-06"
-
   ],
   "author": "Thomas Ejembi",
   "license": "ISC",
