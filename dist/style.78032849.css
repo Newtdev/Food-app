@@ -5,12 +5,10 @@
   padding: 0;
   box-sizing: border-box;
 }
-html {
-  height: 100vh;
-}
+
 body {
   background-color: #f1f1f1;
-  min-height: 100%;
+  min-height: 100vh;
   overflow-x: hidden;
 }
 h1 {
@@ -188,30 +186,9 @@ form #search {
   display: block;
 }
 
-.pagination_container {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.pagination {
-  padding: 10px 25px;
-  font-size: 20px;
-  text-transform: capitalize;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  box-shadow: 2px 2px 2px #ccc;
-  transition: transform 0.1s ease;
-  display: none;
-}
-.pagination:active {
-  transform: translateY(3px);
-}
-.pag {
+/* .pag {
   display: block;
-}
+} */
 @media only screen and (max-width: 870px) {
   .pagination {
     padding: 5px 15px !important;
@@ -219,18 +196,46 @@ form #search {
 }
 .recipe_container {
   grid-area: left;
-  min-height: 100vh;
+  height: 100%;
 }
 
+.pagination_container {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  display: none;
+}
+.pagination {
+  background-color: #c6426e;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px #c6426e;
+  border: none;
+  font-size: 15px;
+  color: #f3f3f3;
+  cursor: pointer;
+  padding: 6px 10px;
+  text-transform: capitalize;
+  transition: transform 0.1s ease;
+  display: block;
+}
+.pagination:active {
+  transform: translateY(3px);
+}
 .recipe__container {
   grid-area: left;
   height: 100%;
   width: 100%;
-  background-color: #f1f1f1;
+  background-color: #fff;
+  /* background-color: red; */
+
+  overflow-y: auto;
 }
 .recipe__container > li {
-  height: 200px;
+  height: 150px;
   width: 80%;
+  max-width: 200px;
   margin: 0 auto;
   margin-top: 10px;
   transition: box-shadow 0.1s ease-in-out;
@@ -260,12 +265,11 @@ form #search {
 .details_container {
   height: 100%;
   width: 100%;
-  background-color: #fff;
 }
 .image_container {
   width: 95%;
-  height: 400px;
-  max-width: 700px;
+  height: 350px;
+  max-width: 500px;
   margin: 0 auto;
   position: relative;
   margin-top: 10px;
@@ -334,7 +338,7 @@ form #search {
 }
 .recipe__label h1,
 .calories h1 {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 800;
   text-align: center;
   color: #fff;

@@ -2890,12 +2890,21 @@ var _addLoader = require("./addLoader");
 
 var _base = require("./base");
 
-// DISPLAY THE RECIPE IMAGE 
+// VARIABLE FOR PAGINTION
+let recipe__Data = [];
+let numberOfPage = 0;
+let numberOfRecipePerPage = 5;
+let currentPage = 1; // DISPLAY THE RECIPE IMAGE 
+
 const displayRecipeData = recipeData => {
-  const displayData = recipeData.map(recipe => {
+  recipe__Data = recipeData;
+  numberOfPage = getPageNumber(recipeData);
+  recipe__Data = getDataByIndex();
+  const displayData = recipe__Data.map(recipe => {
     return "\n                <li class=\"recipe__list\">\n                <img src=".concat(recipe.image, " alt=").concat(recipe.title, " id=").concat(recipe.recipe_id, ">\n       </li>  \n       ");
   }).join("");
   clearDOM(displayRecipeData, displayData, _base.element.dataList);
+  AddButton();
 }; // CLEAR RECIPE IMAGE DOM WHEN ANOTHER SEARCH IS MADE
 
 
@@ -2913,6 +2922,49 @@ const clearDOM = (recipe, data, elem) => {
 
 const EmptyDOM = elem => {
   elem.innerHTML = '';
+}; // RECIPE IMAGE PAGINATION
+
+/**steps:
+ * calculate the number of pages
+ * get the button
+ * get the number of  data per page from the index 
+ * the next and prev function
+ * using slice method to the the data per page
+ * display to the DOM
+ * add the functionality
+ * 
+ */
+// CALCULATE THE NUMBER OF PAGES PER THE TOTAL ITEMS FROM THE DATA
+
+
+const getPageNumber = recipeData => {
+  return Math.ceil(recipeData.length / numberOfRecipePerPage);
+}; // OBTAIN THE NUMBER OF PRODUCT PER PAGE
+
+
+const getDataByIndex = () => {
+  const start = (currentPage - 1) * numberOfRecipePerPage;
+  const stop = start + numberOfRecipePerPage;
+  return recipe__Data.slice(start, stop);
+}; // ADD THE PAGINATION BUTTON
+
+
+const AddButton = () => {
+  _base.element.pagination.display = 'block';
+  onClick();
+};
+
+const onClick = () => {}; // ADDING THE NEXT AND THE PREV BUTTON
+
+
+const nextPage = () => {
+  currentPage++;
+  getDataByIndex();
+};
+
+const prevPage = () => {
+  currentPage--;
+  getDataByIndex();
 };
 /** DISPLAY RECIPE DETAILS */
 
