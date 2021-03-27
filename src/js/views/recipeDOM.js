@@ -7,39 +7,11 @@ let numberOfPage = 0;
 let numberOfRecipePerPage = 5;
 let currentPage = 1;
 
-// DISPLAY THE RECIPE IMAGE 
 export const displayRecipeData = (recipeData) => {
-    recipe__Data = recipeData;
     numberOfPage = getPageNumber(recipeData);
-    recipe__Data = getDataByIndex();
 
-    const displayData = recipe__Data.map(recipe => {
-        return `
-                <li class="recipe__list">
-                <img src=${recipe.image} alt=${recipe.title} id=${recipe.recipe_id}>
-       </li>  
-       `;
-    }).join("");
+    getDataByIndex(recipeData);
 
-    clearDOM(displayRecipeData, displayData, element.dataList);
-
-    AddButton();
-};
-
-
-// CLEAR RECIPE IMAGE DOM WHEN ANOTHER SEARCH IS MADE
-const clearDOM = (recipe, data, elem) => {
-    if (recipe) {
-        EmptyDOM(elem);
-        elem.insertAdjacentHTML('afterbegin', data);
-    } else {
-        elem.insertAdjacentHTML('afterbegin', data);
-    }
-
-};
-// SET RECIPE IMAGE DOM TO EMPTY
-const EmptyDOM = (elem) => {
-    elem.innerHTML = '';
 };
 
 
@@ -63,33 +35,76 @@ const EmptyDOM = (elem) => {
 const getPageNumber = (recipeData) => {
     return Math.ceil(recipeData.length / numberOfRecipePerPage);
 };
+
+const nextPage = (recipeData) => {
+    currentPage += 1;
+};
+
+const prevPage = (recipeData) => {
+    currentPage = 1;
+    getDataByIndex(recipeData);
+};
+
 // OBTAIN THE NUMBER OF PRODUCT PER PAGE
-const getDataByIndex = () => {
-    const start = (currentPage - 1) * numberOfRecipePerPage;
+const getDataByIndex = (recipeData) => {
+    const start = ((currentPage - 1) * numberOfRecipePerPage);
+
     const stop = start + numberOfRecipePerPage;
 
-    return recipe__Data.slice(start, stop);
+    recipe__Data = recipeData.slice(start, stop);
 
+    console.log(recipe__Data);
+    onClick(recipeData);
+    displayData();
 };
 
 // ADD THE PAGINATION BUTTON
-const AddButton = () => {
-    element.pagination.display = 'block';
-    onClick();
+const onClick = (recipeData) => {
+    element.nextPagination.addEventListener('click', () => {
+        nextPage(recipeData);
+        getDataByIndex(recipeData);
+    });
 };
 
-const onClick = () => {
+// DISPLAY THE RECIPE IMAGE 
+const displayData = () => {
+    const displayData = recipe__Data.map(recipe => {
+        return `
+                <li class="recipe__list">
+                <img src=${recipe.image} alt=${recipe.title} id=${recipe.recipe_id}>
+       </li>  
+       `;
+    }).join("");
+
+    clearDOM(displayRecipeData, displayData, element.dataList);
+};
+
+// CLEAR RECIPE IMAGE DOM WHEN ANOTHER SEARCH IS MADE
+const clearDOM = (recipe, data, elem) => {
+    if (recipe) {
+        EmptyDOM(elem);
+        elem.insertAdjacentHTML('afterbegin', data);
+    } else {
+        elem.insertAdjacentHTML('afterbegin', data);
+    }
 
 };
+
+// SET RECIPE IMAGE DOM TO EMPTY
+const EmptyDOM = (elem) => {
+    elem.innerHTML = '';
+};
+
+
+// element.prevPagination.addEventListener('click', () => {
+//     prevPage(recipeData);
+// });
+
+
+
+
 // ADDING THE NEXT AND THE PREV BUTTON
-const nextPage = () => {
-    currentPage++;
-    getDataByIndex();
-};
-const prevPage = () => {
-    currentPage--;
-    getDataByIndex();
-};
+
 
 /** DISPLAY RECIPE DETAILS */
 export const recipeDetails_DOM = (recipe) => {

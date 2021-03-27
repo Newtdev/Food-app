@@ -888,8 +888,8 @@ const element = {
   recipeLoader: document.getElementById('recipe_loader'),
   recipeList: document.querySelectorAll('.recipe__container li'),
   leftContainer: document.querySelector('.left_container'),
-  prevPagination: document.querySelector('.previous'),
-  nextPagination: document.querySelector('.next'),
+  prevPagination: document.getElementById('prev'),
+  nextPagination: document.getElementById('next'),
   pagination: document.querySelector('.pagination_container'),
   detailSection: document.querySelector('.recipe_details'),
   detailsLoader: document.getElementById('details__loader'),
@@ -2894,34 +2894,11 @@ var _base = require("./base");
 let recipe__Data = [];
 let numberOfPage = 0;
 let numberOfRecipePerPage = 5;
-let currentPage = 1; // DISPLAY THE RECIPE IMAGE 
+let currentPage = 1;
 
 const displayRecipeData = recipeData => {
-  recipe__Data = recipeData;
   numberOfPage = getPageNumber(recipeData);
-  recipe__Data = getDataByIndex();
-  const displayData = recipe__Data.map(recipe => {
-    return "\n                <li class=\"recipe__list\">\n                <img src=".concat(recipe.image, " alt=").concat(recipe.title, " id=").concat(recipe.recipe_id, ">\n       </li>  \n       ");
-  }).join("");
-  clearDOM(displayRecipeData, displayData, _base.element.dataList);
-  AddButton();
-}; // CLEAR RECIPE IMAGE DOM WHEN ANOTHER SEARCH IS MADE
-
-
-exports.displayRecipeData = displayRecipeData;
-
-const clearDOM = (recipe, data, elem) => {
-  if (recipe) {
-    EmptyDOM(elem);
-    elem.insertAdjacentHTML('afterbegin', data);
-  } else {
-    elem.insertAdjacentHTML('afterbegin', data);
-  }
-}; // SET RECIPE IMAGE DOM TO EMPTY
-
-
-const EmptyDOM = elem => {
-  elem.innerHTML = '';
+  getDataByIndex(recipeData);
 }; // RECIPE IMAGE PAGINATION
 
 /**steps:
@@ -2937,35 +2914,65 @@ const EmptyDOM = elem => {
 // CALCULATE THE NUMBER OF PAGES PER THE TOTAL ITEMS FROM THE DATA
 
 
+exports.displayRecipeData = displayRecipeData;
+
 const getPageNumber = recipeData => {
   return Math.ceil(recipeData.length / numberOfRecipePerPage);
+};
+
+const nextPage = recipeData => {
+  currentPage += 1;
+};
+
+const prevPage = recipeData => {
+  currentPage = 1;
+  getDataByIndex(recipeData);
 }; // OBTAIN THE NUMBER OF PRODUCT PER PAGE
 
 
-const getDataByIndex = () => {
+const getDataByIndex = recipeData => {
   const start = (currentPage - 1) * numberOfRecipePerPage;
   const stop = start + numberOfRecipePerPage;
-  return recipe__Data.slice(start, stop);
+  recipe__Data = recipeData.slice(start, stop);
+  console.log(recipe__Data);
+  onClick(recipeData);
+  displayData();
 }; // ADD THE PAGINATION BUTTON
 
 
-const AddButton = () => {
-  _base.element.pagination.display = 'block';
-  onClick();
-};
+const onClick = recipeData => {
+  _base.element.nextPagination.addEventListener('click', () => {
+    nextPage(recipeData);
+    getDataByIndex(recipeData);
+  });
+}; // DISPLAY THE RECIPE IMAGE 
 
-const onClick = () => {}; // ADDING THE NEXT AND THE PREV BUTTON
+
+const displayData = () => {
+  const displayData = recipe__Data.map(recipe => {
+    return "\n                <li class=\"recipe__list\">\n                <img src=".concat(recipe.image, " alt=").concat(recipe.title, " id=").concat(recipe.recipe_id, ">\n       </li>  \n       ");
+  }).join("");
+  clearDOM(displayRecipeData, displayData, _base.element.dataList);
+}; // CLEAR RECIPE IMAGE DOM WHEN ANOTHER SEARCH IS MADE
 
 
-const nextPage = () => {
-  currentPage++;
-  getDataByIndex();
-};
+const clearDOM = (recipe, data, elem) => {
+  if (recipe) {
+    EmptyDOM(elem);
+    elem.insertAdjacentHTML('afterbegin', data);
+  } else {
+    elem.insertAdjacentHTML('afterbegin', data);
+  }
+}; // SET RECIPE IMAGE DOM TO EMPTY
 
-const prevPage = () => {
-  currentPage--;
-  getDataByIndex();
-};
+
+const EmptyDOM = elem => {
+  elem.innerHTML = '';
+}; // element.prevPagination.addEventListener('click', () => {
+//     prevPage(recipeData);
+// });
+// ADDING THE NEXT AND THE PREV BUTTON
+
 /** DISPLAY RECIPE DETAILS */
 
 
@@ -3252,7 +3259,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60232" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53047" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
