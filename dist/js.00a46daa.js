@@ -2918,15 +2918,6 @@ exports.displayRecipeData = displayRecipeData;
 
 const getPageNumber = recipeData => {
   return Math.ceil(recipeData.length / numberOfRecipePerPage);
-};
-
-const nextPage = recipeData => {
-  currentPage += 1;
-};
-
-const prevPage = recipeData => {
-  currentPage = 1;
-  getDataByIndex(recipeData);
 }; // OBTAIN THE NUMBER OF PRODUCT PER PAGE
 
 
@@ -2934,25 +2925,53 @@ const getDataByIndex = recipeData => {
   const start = (currentPage - 1) * numberOfRecipePerPage;
   const stop = start + numberOfRecipePerPage;
   recipe__Data = recipeData.slice(start, stop);
-  console.log(recipe__Data);
-  onClick(recipeData);
   displayData();
-}; // ADD THE PAGINATION BUTTON
+  getBtn(recipeData);
+  checkBtns();
+};
 
+const nextPage = recipeData => {
+  currentPage += 1; // console.log(recipeData);
 
-const onClick = recipeData => {
-  _base.element.nextPagination.addEventListener('click', () => {
-    nextPage(recipeData);
-    getDataByIndex(recipeData);
-  });
+  getDataByIndex(recipeData);
+};
+
+const prevPage = recipeData => {
+  currentPage -= 1;
+  getDataByIndex(recipeData);
 }; // DISPLAY THE RECIPE IMAGE 
 
 
 const displayData = () => {
+  // console.log(recipe__Data);
   const displayData = recipe__Data.map(recipe => {
     return "\n                <li class=\"recipe__list\">\n                <img src=".concat(recipe.image, " alt=").concat(recipe.title, " id=").concat(recipe.recipe_id, ">\n       </li>  \n       ");
   }).join("");
   clearDOM(displayRecipeData, displayData, _base.element.dataList);
+}; // ADD THE PAGINATION BUTTON
+
+
+const getBtn = recipeData => {
+  _base.element.pagination.innerHTML = "\n          <button class=\"pagination\" id=\"prev\">prev</button>\n          <button class=\"pagination\" id=\"next\">next</button>\n    ";
+  document.getElementById('next').addEventListener('click', () => {
+    nextPage(recipeData);
+  });
+  document.getElementById('prev').addEventListener('click', () => {
+    prevPage(recipeData);
+  });
+}; // CHECK THE BUTTON WITH THE NUMBER OF THE PRODUCT GOTTEN
+
+
+const checkBtns = () => {
+  // console.log(numberOfPage);
+  // console.log(currentPage);
+  if (currentPage === numberOfPage) {
+    document.querySelector('#next').disabled = true; // console.log(document.getElementById('next'));
+  }
+
+  if (currentPage === 1) {
+    document.getElementById('prev').disabled = true;
+  }
 }; // CLEAR RECIPE IMAGE DOM WHEN ANOTHER SEARCH IS MADE
 
 
@@ -2968,10 +2987,7 @@ const clearDOM = (recipe, data, elem) => {
 
 const EmptyDOM = elem => {
   elem.innerHTML = '';
-}; // element.prevPagination.addEventListener('click', () => {
-//     prevPage(recipeData);
-// });
-// ADDING THE NEXT AND THE PREV BUTTON
+}; // ADDING THE NEXT AND THE PREV BUTTON
 
 /** DISPLAY RECIPE DETAILS */
 
@@ -3019,14 +3035,7 @@ const loadObj = data => {
 
     ;
   });
-}; // const clearFaveList = (arr) => {
-//     element.clearButton.addEventListener('click',(e) => {
-//         const a = arr.pop();
-//         // delete from the array that house the object
-//         // remove the child element containing the list
-//     })
-// }
-//   GETTING THE SELECTED IMAGE ID
+}; //   GETTING THE SELECTED IMAGE ID
 // SEND THE ARRAY TO LOCAL STORAGE
 
 
@@ -3058,6 +3067,13 @@ const saved_Ingredient = data => {
     return "<li>".concat(data, "</li>");
   }).join('');
   return savedIngredient;
+};
+
+const clearFaveList = arr => {
+  _base.element.clearButton.addEventListener('click', e => {
+    const remove__faveDetails = arr.pop(); // delete from the array that house the object
+    // remove the child element containing the list
+  });
 };
 /**DISPLAY FAVE RECIPE LIST WHEN PAGE LOADS */
 
@@ -3186,6 +3202,8 @@ let detailsArr = [];
 const awaitRecipeDetails = async id => {
   // GET PRODUCT BY ID AND SAVE IN THE APP STATE
   appState = await (0, _RecipeDetails.new_data)(id);
+  console.log(id); // appState = await 
+
   let getDetail = (0, _Fetch.get_Details)(appState); // SAVE IN AN ARRAY TO AVOID DISPLAYING TWO DETAILS AT A TIME
 
   detailsArr = [getDetail]; // // ADD TO THE RECIPE DOM TO DISPLAY
@@ -3228,8 +3246,11 @@ _base.element.heart.addEventListener('click', e => {
 /** WHEN PAGE LOADS */
 
 
-window.addEventListener('DOMContentLoaded', () => {// getFaveImage()
-  //  fetchQuery('pasta')
+window.addEventListener('load', () => {
+  let targetList = 35174; // getFaveImage()
+
+  fetchQuery('sushi');
+  awaitRecipeDetails(targetList);
 });
 },{"regenerator-runtime/runtime":"../node_modules/regenerator-runtime/runtime.js","./views/Tab":"js/views/Tab.js","./models/Search":"js/models/Search.js","./views/base":"js/views/base.js","./models/Fetch":"js/models/Fetch.js","./views/recipeDOM":"js/views/recipeDOM.js","./models/RecipeDetails":"js/models/RecipeDetails.js","./views/addLoader":"js/views/addLoader.js","./views/mobile":"js/views/mobile.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -3259,7 +3280,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53047" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49697" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

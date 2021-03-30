@@ -36,14 +36,7 @@ const getPageNumber = (recipeData) => {
     return Math.ceil(recipeData.length / numberOfRecipePerPage);
 };
 
-const nextPage = (recipeData) => {
-    currentPage += 1;
-};
 
-const prevPage = (recipeData) => {
-    currentPage = 1;
-    getDataByIndex(recipeData);
-};
 
 // OBTAIN THE NUMBER OF PRODUCT PER PAGE
 const getDataByIndex = (recipeData) => {
@@ -53,21 +46,32 @@ const getDataByIndex = (recipeData) => {
 
     recipe__Data = recipeData.slice(start, stop);
 
-    console.log(recipe__Data);
-    onClick(recipeData);
     displayData();
+    getBtn(recipeData);
+    checkBtns();
 };
 
-// ADD THE PAGINATION BUTTON
-const onClick = (recipeData) => {
-    element.nextPagination.addEventListener('click', () => {
-        nextPage(recipeData);
-        getDataByIndex(recipeData);
-    });
+const nextPage = (recipeData) => {
+    currentPage += 1;
+    // console.log(recipeData);
+    getDataByIndex(recipeData);
+
 };
+
+
+const prevPage = (recipeData) => {
+    currentPage -= 1;
+    getDataByIndex(recipeData);
+};
+
+
+
+
+
 
 // DISPLAY THE RECIPE IMAGE 
 const displayData = () => {
+    // console.log(recipe__Data);
     const displayData = recipe__Data.map(recipe => {
         return `
                 <li class="recipe__list">
@@ -77,8 +81,37 @@ const displayData = () => {
     }).join("");
 
     clearDOM(displayRecipeData, displayData, element.dataList);
+
 };
 
+
+// ADD THE PAGINATION BUTTON
+const getBtn = (recipeData) => {
+    element.pagination.innerHTML = `
+          <button class="pagination" id="prev">prev</button>
+          <button class="pagination" id="next">next</button>
+    `;
+    document.getElementById('next').addEventListener('click', () => {
+        nextPage(recipeData);
+    });
+
+    document.getElementById('prev').addEventListener('click', () => {
+        prevPage(recipeData);
+    });
+};
+
+// CHECK THE BUTTON WITH THE NUMBER OF THE PRODUCT GOTTEN
+const checkBtns = () => {
+    // console.log(numberOfPage);
+    // console.log(currentPage);
+    if (currentPage === numberOfPage) {
+        document.querySelector('#next').disabled = true;
+        // console.log(document.getElementById('next'));
+    }
+    if (currentPage === 1) {
+        document.getElementById('prev').disabled = true;
+    }
+};
 // CLEAR RECIPE IMAGE DOM WHEN ANOTHER SEARCH IS MADE
 const clearDOM = (recipe, data, elem) => {
     if (recipe) {
@@ -95,10 +128,6 @@ const EmptyDOM = (elem) => {
     elem.innerHTML = '';
 };
 
-
-// element.prevPagination.addEventListener('click', () => {
-//     prevPage(recipeData);
-// });
 
 
 
@@ -188,16 +217,6 @@ export const loadObj = (data) => {
 
 };
 
-// const clearFaveList = (arr) => {
-//     element.clearButton.addEventListener('click',(e) => {
-//         const a = arr.pop();
-//         // delete from the array that house the object
-//         // remove the child element containing the list
-//     })
-
-
-// }
-
 //   GETTING THE SELECTED IMAGE ID
 
 // SEND THE ARRAY TO LOCAL STORAGE
@@ -242,6 +261,15 @@ const saved_Ingredient = (data) => {
     return savedIngredient;
 };
 
+const clearFaveList = (arr) => {
+    element.clearButton.addEventListener('click', (e) => {
+        const remove__faveDetails = arr.pop();
+        // delete from the array that house the object
+        // remove the child element containing the list
+    });
+
+
+};
 
 /**DISPLAY FAVE RECIPE LIST WHEN PAGE LOADS */
 window.addEventListener('DOMContentLoaded', () => {
