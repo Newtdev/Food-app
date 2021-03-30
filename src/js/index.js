@@ -3,7 +3,7 @@ import Tab from "./views/Tab";
 import SearchTerm from "./models/Search";
 import { element } from './views/base';
 import { get_Details } from './models/Fetch';
-import { displayRecipeData, recipeDetails_DOM, getFaveImage } from './views/recipeDOM';
+import { displayRecipeData, recipeDetails_DOM, getFavelist } from './views/recipeDOM';
 import { new_data } from './models/RecipeDetails';
 import { loader, detailsLoader } from './views/addLoader';
 import mobile from './views/mobile';
@@ -106,10 +106,10 @@ element.heart.addEventListener('click', e => {
 
 
 /** WHEN PAGE LOADS */
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
   let targetList = 35174;
-  // getFaveImage()
   fetchQuery('sushi');
   awaitRecipeDetails(targetList);
+  console.log(getFavelist());
 });
 

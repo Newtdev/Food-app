@@ -4,7 +4,7 @@ import { element } from './base';
 // VARIABLE FOR PAGINTION
 let recipe__Data = [];
 let numberOfPage = 0;
-let numberOfRecipePerPage = 5;
+let numberOfRecipePerPage = 10;
 let currentPage = 1;
 
 export const displayRecipeData = (recipeData) => {
@@ -223,11 +223,10 @@ export const loadObj = (data) => {
 const pushLocalStorage = (val) => {
     // SEND THE ARRAY TO LOCAL STORAGE
     localStorage.setItem('faveRecipe', JSON.stringify(val));
-    getFavelist();
-    faveDOM(getFavelist());
+    const data__returned = getFavelist();
+    faveDOM(data__returned);
 };
-
-const getFavelist = () => {
+export const getFavelist = () => {
     // RETRIVING THE FROM THE LOCAL STORAGE
     return localStorage.getItem('faveRecipe') ? JSON.parse(localStorage.getItem('faveRecipe')) : [];
 };
@@ -253,16 +252,8 @@ const faveDOM = (data) => {
     element.fave__list.innerHTML = dataArr;
 };
 
-// ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
-const saved_Ingredient = (data) => {
-    const savedIngredient = data.ingredients.map(data => {
-        return `<li>${data}</li>`;
-    }).join('');
-    return savedIngredient;
-};
-
 const clearFaveList = (arr) => {
-    element.clearButton.addEventListener('click', (e) => {
+    document.querySelector('button').addEventListener('click', (e) => {
         const remove__faveDetails = arr.pop();
         // delete from the array that house the object
         // remove the child element containing the list
@@ -271,7 +262,19 @@ const clearFaveList = (arr) => {
 
 };
 
+// ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
+const saved_Ingredient = (data) => {
+    const savedIngredient = data.ingredients.map(data => {
+        return `<li>${data}</li>`;
+    }).join('');
+    return savedIngredient;
+};
+
+
+
 /**DISPLAY FAVE RECIPE LIST WHEN PAGE LOADS */
-window.addEventListener('DOMContentLoaded', () => {
-    //  getFaveImage()
+
+window.addEventListener('load', () => {
+    const data__returned = getFavelist();
+    faveDOM(data__returned);
 });

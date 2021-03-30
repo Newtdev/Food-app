@@ -388,6 +388,7 @@ form #search {
 .fave_images_container {
   height: 100%;
   width: 100%;
+  background-color: #fff;
 }
 .fave_images_container h1 {
   font-size: 20px;
@@ -396,7 +397,6 @@ form #search {
   text-align: center;
 }
 .fave_images_container .fave__list {
-  /* background: red; */
   height: fit-content;
   width: 100%;
   display: flex;
@@ -727,7 +727,7 @@ small a:hover {
   .fa-heart,
   .fa-filter,
   #theme img {
-    height: 28px;
+    height: 20px;
     cursor: pointer;
     font-size: 28px;
   }

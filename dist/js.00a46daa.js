@@ -2884,7 +2884,7 @@ exports.loader = loader;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.loadObj = exports.recipeDetails_DOM = exports.displayRecipeData = void 0;
+exports.getFavelist = exports.loadObj = exports.recipeDetails_DOM = exports.displayRecipeData = void 0;
 
 var _addLoader = require("./addLoader");
 
@@ -2893,7 +2893,7 @@ var _base = require("./base");
 // VARIABLE FOR PAGINTION
 let recipe__Data = [];
 let numberOfPage = 0;
-let numberOfRecipePerPage = 5;
+let numberOfRecipePerPage = 10;
 let currentPage = 1;
 
 const displayRecipeData = recipeData => {
@@ -3044,8 +3044,8 @@ exports.loadObj = loadObj;
 const pushLocalStorage = val => {
   // SEND THE ARRAY TO LOCAL STORAGE
   localStorage.setItem('faveRecipe', JSON.stringify(val));
-  getFavelist();
-  faveDOM(getFavelist());
+  const data__returned = getFavelist();
+  faveDOM(data__returned);
 };
 
 const getFavelist = () => {
@@ -3054,11 +3054,20 @@ const getFavelist = () => {
 }; //   DISPLAYING FAVE RECIPE TO THE DOM FROM LOCAL STORAGE
 
 
+exports.getFavelist = getFavelist;
+
 const faveDOM = data => {
   const dataArr = data.map(ingredientList => {
     return " \n          <small>\n          <h1>".concat(ingredientList.title, "</h1>\n      </small>\n      <ul>\n      ").concat(saved_Ingredient(ingredientList), "\n  </ul>\n  <small>\n      <a href=").concat(ingredientList.source_url, " target=\"blank\">source</a>\n  </small>\n  <button>clear</button>\n\n  \n  ");
   }).join('');
   _base.element.fave__list.innerHTML = dataArr;
+};
+
+const clearFaveList = arr => {
+  document.querySelector('button').addEventListener('click', e => {
+    const remove__faveDetails = arr.pop(); // delete from the array that house the object
+    // remove the child element containing the list
+  });
 }; // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
 
 
@@ -3068,17 +3077,12 @@ const saved_Ingredient = data => {
   }).join('');
   return savedIngredient;
 };
-
-const clearFaveList = arr => {
-  _base.element.clearButton.addEventListener('click', e => {
-    const remove__faveDetails = arr.pop(); // delete from the array that house the object
-    // remove the child element containing the list
-  });
-};
 /**DISPLAY FAVE RECIPE LIST WHEN PAGE LOADS */
 
 
-window.addEventListener('DOMContentLoaded', () => {//  getFaveImage()
+window.addEventListener('load', () => {
+  const data__returned = getFavelist();
+  faveDOM(data__returned);
 });
 },{"./addLoader":"js/views/addLoader.js","./base":"js/views/base.js"}],"js/models/RecipeDetails.js":[function(require,module,exports) {
 "use strict";
@@ -3246,11 +3250,11 @@ _base.element.heart.addEventListener('click', e => {
 /** WHEN PAGE LOADS */
 
 
-window.addEventListener('load', () => {
-  let targetList = 35174; // getFaveImage()
-
+window.addEventListener('DOMContentLoaded', () => {
+  let targetList = 35174;
   fetchQuery('sushi');
   awaitRecipeDetails(targetList);
+  console.log((0, _recipeDOM.getFavelist)());
 });
 },{"regenerator-runtime/runtime":"../node_modules/regenerator-runtime/runtime.js","./views/Tab":"js/views/Tab.js","./models/Search":"js/models/Search.js","./views/base":"js/views/base.js","./models/Fetch":"js/models/Fetch.js","./views/recipeDOM":"js/views/recipeDOM.js","./models/RecipeDetails":"js/models/RecipeDetails.js","./views/addLoader":"js/views/addLoader.js","./views/mobile":"js/views/mobile.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
