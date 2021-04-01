@@ -32,8 +32,9 @@ function pageOnClicked(id) {
     element.animate.forEach(section => {
       section.classList.remove("hide_page");
     });
-    /**add hide page class to the page with id that matches the icon id
-     */
+
+    /**add hide page class to the page with id that matches the icon id*/
+
     pageId.classList.add("hide_page");
   }
 }
@@ -42,7 +43,6 @@ function pageOnClicked(id) {
 const openSearchBar = () => {
   element.searchIcon.addEventListener("click", () => {
     element.search.classList.toggle("active");
-    // element.recipe_image.add('hide_page');
 
   });
 };
