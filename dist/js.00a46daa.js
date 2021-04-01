@@ -880,7 +880,7 @@ const element = {
   searchQuery: document.getElementById('search'),
   submitText: document.querySelector('form'),
   buttons: document.querySelector(".button"),
-  searchIcon: document.querySelector(".searchIcon"),
+  searchIcon: document.querySelector("#theme"),
   search: document.querySelector(".search"),
   small: document.querySelectorAll("small"),
   dataList: document.querySelector('.recipe__container'),
@@ -2894,7 +2894,15 @@ var _base = require("./base");
 let recipe__Data = [];
 let numberOfPage = 0;
 let numberOfRecipePerPage = 10;
-let currentPage = 1;
+let currentPage = 1; // const mediaQuery = window.matchMedia("(max-width:768px)");
+// const detailsLenght = (e) => {
+//     if (e.matches) {
+//         numberOfPage = 5;
+//         // element.leftContainer.style.height= `${recipeContainerHeight}`;
+//         // const leftHeight= element.lef
+//     }
+// };
+// mediaQuery.addListener(detailsLenght(mediaQuery));
 
 const displayRecipeData = recipeData => {
   numberOfPage = getPageNumber(recipeData);
@@ -3205,8 +3213,7 @@ let detailsArr = [];
 
 const awaitRecipeDetails = async id => {
   // GET PRODUCT BY ID AND SAVE IN THE APP STATE
-  appState = await (0, _RecipeDetails.new_data)(id);
-  console.log(id); // appState = await 
+  appState = await (0, _RecipeDetails.new_data)(id); // appState = await 
 
   let getDetail = (0, _Fetch.get_Details)(appState); // SAVE IN AN ARRAY TO AVOID DISPLAYING TWO DETAILS AT A TIME
 
@@ -3254,7 +3261,6 @@ window.addEventListener('DOMContentLoaded', () => {
   let targetList = 35174;
   fetchQuery('sushi');
   awaitRecipeDetails(targetList);
-  console.log((0, _recipeDOM.getFavelist)());
 });
 },{"regenerator-runtime/runtime":"../node_modules/regenerator-runtime/runtime.js","./views/Tab":"js/views/Tab.js","./models/Search":"js/models/Search.js","./views/base":"js/views/base.js","./models/Fetch":"js/models/Fetch.js","./views/recipeDOM":"js/views/recipeDOM.js","./models/RecipeDetails":"js/models/RecipeDetails.js","./views/addLoader":"js/views/addLoader.js","./views/mobile":"js/views/mobile.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -3284,7 +3290,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49697" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49681" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

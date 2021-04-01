@@ -64,7 +64,6 @@ let detailsArr = [];
 const awaitRecipeDetails = async (id) => {
   // GET PRODUCT BY ID AND SAVE IN THE APP STATE
   appState = await new_data(id);
-  console.log(id);
   // appState = await 
 
   let getDetail = get_Details(appState);
@@ -110,6 +109,5 @@ window.addEventListener('DOMContentLoaded', () => {
   let targetList = 35174;
   fetchQuery('sushi');
   awaitRecipeDetails(targetList);
-  console.log(getFavelist());
 });
 

@@ -7,6 +7,18 @@ let numberOfPage = 0;
 let numberOfRecipePerPage = 10;
 let currentPage = 1;
 
+
+// const mediaQuery = window.matchMedia("(max-width:768px)");
+// const detailsLenght = (e) => {
+//     if (e.matches) {
+//         numberOfPage = 5;
+//         // element.leftContainer.style.height= `${recipeContainerHeight}`;
+//         // const leftHeight= element.lef
+//     }
+// };
+
+// mediaQuery.addListener(detailsLenght(mediaQuery));
+
 export const displayRecipeData = (recipeData) => {
     numberOfPage = getPageNumber(recipeData);
 

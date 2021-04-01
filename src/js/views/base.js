@@ -3,7 +3,7 @@ export const element = {
   searchQuery: document.getElementById('search'),
   submitText: document.querySelector('form'),
   buttons: document.querySelector(".button"),
-  searchIcon: document.querySelector(".searchIcon"),
+  searchIcon: document.querySelector("#theme"),
   search: document.querySelector(".search"),
   small: document.querySelectorAll("small"),
   dataList: document.querySelector('.recipe__container'),

@@ -1,4 +1,4 @@
-import {element} from './base'
+import { element } from './base';
 
 /** get each page on click on the icon for mobile view */
 const tab = btn => {
@@ -27,6 +27,7 @@ function pageOnClicked(id) {
   if (id) {
     const clickedID = id.dataset.id;
     const pageId = document.getElementById(clickedID);
+
     /**remove hide page class from all section */
     element.animate.forEach(section => {
       section.classList.remove("hide_page");
