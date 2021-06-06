@@ -1,4 +1,4 @@
- [# **NutriFood**](https://newtfood.netlify.app/)
+ # [NutriFood](https://newtfood.netlify.app/)
  
 ![image](https://user-images.githubusercontent.com/60948736/113063829-c570d880-916a-11eb-887c-15405d27ea87.png)
 
