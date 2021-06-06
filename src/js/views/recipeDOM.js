@@ -4,20 +4,9 @@ import { element } from './base';
 // VARIABLE FOR PAGINTION
 let recipe__Data = [];
 let numberOfPage = 0;
-let numberOfRecipePerPage = 10;
+let numberOfRecipePerPage = 5;
 let currentPage = 1;
 
-
-// const mediaQuery = window.matchMedia("(max-width:768px)");
-// const detailsLenght = (e) => {
-//     if (e.matches) {
-//         numberOfPage = 5;
-//         // element.leftContainer.style.height= `${recipeContainerHeight}`;
-//         // const leftHeight= element.lef
-//     }
-// };
-
-// mediaQuery.addListener(detailsLenght(mediaQuery));
 
 export const displayRecipeData = (recipeData) => {
     numberOfPage = getPageNumber(recipeData);
@@ -114,11 +103,9 @@ const getBtn = (recipeData) => {
 
 // CHECK THE BUTTON WITH THE NUMBER OF THE PRODUCT GOTTEN
 const checkBtns = () => {
-    // console.log(numberOfPage);
-    // console.log(currentPage);
+
     if (currentPage === numberOfPage) {
         document.querySelector('#next').disabled = true;
-        // console.log(document.getElementById('next'));
     }
     if (currentPage === 1) {
         document.getElementById('prev').disabled = true;

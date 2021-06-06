@@ -2891,16 +2891,8 @@ var _base = require("./base");
 // VARIABLE FOR PAGINTION
 let recipe__Data = [];
 let numberOfPage = 0;
-let numberOfRecipePerPage = 10;
-let currentPage = 1; // const mediaQuery = window.matchMedia("(max-width:768px)");
-// const detailsLenght = (e) => {
-//     if (e.matches) {
-//         numberOfPage = 5;
-//         // element.leftContainer.style.height= `${recipeContainerHeight}`;
-//         // const leftHeight= element.lef
-//     }
-// };
-// mediaQuery.addListener(detailsLenght(mediaQuery));
+let numberOfRecipePerPage = 5;
+let currentPage = 1;
 
 const displayRecipeData = recipeData => {
   numberOfPage = getPageNumber(recipeData);
@@ -2969,10 +2961,8 @@ const getBtn = recipeData => {
 
 
 const checkBtns = () => {
-  // console.log(numberOfPage);
-  // console.log(currentPage);
   if (currentPage === numberOfPage) {
-    document.querySelector('#next').disabled = true; // console.log(document.getElementById('next'));
+    document.querySelector('#next').disabled = true;
   }
 
   if (currentPage === 1) {
@@ -3288,7 +3278,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49681" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50794" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

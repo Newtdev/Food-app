@@ -1,37 +1,38 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto:wght@100&family=Stalinist+One&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto:wght@100&family=Stalinist+One&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
+html {
+  --base: #642b73;
+  --accent: #c6426e;
+  --light: #f1f1f1;
+  --dark: #f3f3f3;
+}
 body {
-  background-color: #f1f1f1;
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   overflow-x: hidden;
+  display: grid;
+  grid-template-columns: 1.5fr 2fr 1.5fr 1.5fr;
+  grid-template-rows: 1fr;
+  grid-gap: 1px;
+  grid-template-areas:
+    'top top top top'
+    'left middle middle right';
 }
 h1 {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 p {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 li {
   list-style-type: none;
 }
-main {
-  min-height: 100%;
-  width: 100vw;
-  display: grid;
-  grid-template-columns: 1.5fr 2fr 1.5fr 1.5fr;
-  grid-template-rows: 0.1fr;
-  grid-gap: 1px;
-  grid-template-areas:
-    "top top top top"
-    "left middle middle right";
-  /* overflow: hidden; */
-}
+
 /* navigation styling  */
 .top {
   grid-area: top;
@@ -45,7 +46,7 @@ main {
   justify-content: space-evenly;
   align-items: center;
   border-bottom: 1px solid #ccc;
-  background: linear-gradient(to bottom, #642b73, #c6426e);
+  background-color: var(--base);
 }
 nav,
 .logo,
@@ -68,7 +69,7 @@ nav,
   font-size: 20px !important;
   font-weight: bold;
   color: #f1f1f1;
-  font-family: "Stalinist One", cursive;
+  font-family: 'Stalinist One', cursive;
 }
 
 .fave_container img,
@@ -108,7 +109,7 @@ form #search {
   right: 0;
   width: 155px;
   height: 100%;
-  background: linear-gradient(to left, #642b73, #c6426e);
+  background: linear-gradient(to left, var(--base), var(--accent));
   padding: 5px 0;
   border-radius: 20px;
   cursor: pointer;
@@ -119,7 +120,7 @@ form #search {
   color: #f1f1f1;
 }
 .search_button:hover {
-  background: linear-gradient(to right, #652b73ef, #c6426e);
+  background: linear-gradient(to right, #652b73ef, var(--accent));
 }
 
 @media only screen and (width: 768px) {
@@ -196,20 +197,22 @@ form #search {
 }
 .recipe_container {
   grid-area: left;
-  height: 100%;
+  background-color: #f1f1f1;
+  overflow-y: auto;
 }
 
 .pagination_container {
   width: 100%;
-  height: 30px;
+  height: 50px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  margin-top: 120px;
 }
 .pagination {
-  background-color: #c6426e;
+  background-color: var(--accent);
   border-radius: 5px;
-  box-shadow: 1px 1px 1px #c6426e;
+  box-shadow: 1px 1px 1px var(--accent);
   border: none;
   font-size: 15px;
   color: #f3f3f3;
@@ -223,13 +226,9 @@ form #search {
   transform: translateY(3px);
 }
 .recipe__container {
-  grid-area: left;
   height: 100%;
   width: 100%;
-  background-color: #fff;
-  /* background-color: red; */
-
-  overflow-y: auto;
+  /* background-color: #fff; */
 }
 .recipe__container > li {
   height: 150px;
@@ -255,10 +254,9 @@ form #search {
 }
 /* recipe details container styling */
 .recipe_details {
-  height: 100vh;
-  width: 100%;
   grid-area: middle;
   background-color: #f1f1f1;
+  overflow-y: auto;
 }
 
 .details_container {
@@ -327,12 +325,12 @@ form #search {
   min-width: fit-content;
   padding: 10px 30px;
   border-radius: 5px;
-  background: linear-gradient(#c6426e, #642b73);
+  background: linear-gradient(var(--accent), var(--base));
 }
 .calories {
   padding: 10px 20px;
   border-radius: 5px;
-  background: linear-gradient(#c6426e, #642b73);
+  background: linear-gradient(var(--accent), var(--base));
   margin-top: 40px;
 }
 .recipe__label h1,
@@ -352,7 +350,7 @@ form #search {
 .ingredient__list span {
   display: inline-block;
   border-radius: 5px;
-  background: linear-gradient(#c6426e, #642b73);
+  background: linear-gradient(var(--accent), var(--base));
   padding: 10px 20px;
 }
 .total__nutrient h1,
@@ -372,8 +370,8 @@ form #search {
 .ingredient__list ul li {
   font-size: 20px;
   font-weight: lighter;
-  color: #642b73;
-  font-family: "Open Sans", sans-serif;
+  color: var(--base);
+  font-family: 'Open Sans', sans-serif;
   list-style: circle;
   padding: 10px 0;
 }
@@ -392,8 +390,8 @@ form #search {
 }
 .fave_images_container h1 {
   font-size: 20px;
-  font-family: "Stalinist One", cursive;
-  color: #642b73;
+  font-family: 'Stalinist One', cursive;
+  color: var(--base);
   text-align: center;
 }
 .fave_images_container .fave__list {
@@ -406,20 +404,19 @@ form #search {
 }
 .fave__list small {
   display: inline-block;
-  /* padding: 10px 10px; */
-  background: linear-gradient(#c6426e, #642b73);
+  padding: 10px 10px;
+  background: linear-gradient(var(--accent), var(--base));
   margin: 0 10px;
   margin-top: 39px;
 }
 
 .fave__list small h1 {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 25px;
   text-transform: capitalize;
   color: #f1f1f1;
 }
 .fave_images_container .fave__list ul {
-  /* background: green; */
   height: 100%;
   width: 100%;
   display: flex;
@@ -435,7 +432,7 @@ form #search {
   padding: 5px 0;
   text-align: left;
   margin-top: 2px;
-  color: #642b73;
+  color: var(--base);
 }
 small a {
   font-size: 25px;
@@ -450,7 +447,7 @@ small a:hover {
   padding: 10px 15px;
   margin: 0 auto;
   margin-top: 50px;
-  background-color: #642b73;
+  background-color: var(--base);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -551,16 +548,15 @@ small a:hover {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     grid-template-areas:
-      "top top top top top"
-      "left"
-      "middle"
-      "right";
+      'top top top top top'
+      'left'
+      'middle'
+      'right';
   }
   .recipe_container {
     grid-area: top;
     position: relative;
     min-height: 100vh;
-    /* overflow-y: auto; */
   }
   .recipe__container {
     display: flex;
@@ -630,7 +626,7 @@ small a:hover {
     width: 100%;
   }
   nav {
-    background: linear-gradient(to right, #642b73, #c6426e);
+    background: linear-gradient(to right, var(--base), var(--accent));
     justify-content: space-around !important;
     align-items: center !important;
     cursor: default;
@@ -661,7 +657,7 @@ small a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to left, #642b73, #c6426e);
+    background: linear-gradient(to left, var(--base), var(--accent));
     z-index: 100;
     visibility: hidden;
     transition: opacity 0.2s ease-out;
@@ -681,7 +677,7 @@ small a:hover {
   }
   form #search:active,
   form #search:focus {
-    border: 1px solid #642b73;
+    border: 1px solid var(--base);
   }
   .search_button {
     width: 100px;
@@ -696,12 +692,12 @@ small a:hover {
     left: 0;
     bottom: 0;
     display: block !important;
-    background: linear-gradient(to bottom, #642b73, #c6426e);
+    background: linear-gradient(to bottom, var(--base), var(--accent));
     width: 100%;
     /* height: 50px; */
     padding-top: 5px;
     z-index: 10;
-    box-shadow: 2px 2px 2px #642b73;
+    box-shadow: 2px 2px 2px var(--base);
     /* display: none !important; */
   }
   .button {
@@ -735,7 +731,7 @@ small a:hover {
   #theme small,
   .filter small {
     font-size: 10px;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 600;
     color: #f1f1f1;
     text-align: center;
@@ -787,15 +783,15 @@ small a:hover {
 }
 .dev__name span {
   font-size: 15px;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 600;
-  color: #642b73;
+  color: var(--base);
   text-align: center;
 }
 .dev__name * small {
   font-size: 20px;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 600;
-  color: #642b73;
+  color: var(--base);
   text-align: center;
 }
