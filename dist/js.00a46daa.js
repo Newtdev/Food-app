@@ -2876,17 +2876,67 @@ const loader = (recipeData, elem) => {
 
 
 exports.loader = loader;
+},{"./base":"js/views/base.js","./recipeDOM":"js/views/recipeDOM.js"}],"js/views/faveRecipe.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.pushLocalStorage = void 0;
+
+var _base = require("./base");
+
+var _recipeDOM = require("./recipeDOM");
+
+const pushLocalStorage = data => {
+  // SEND THE ARRAY TO LOCAL STORAGE
+  localStorage.setItem('faveRecipe', JSON.stringify(data));
+  const data__returned = getFavelist();
+  faveDOM(data__returned);
+  clearFaveList();
+};
+
+exports.pushLocalStorage = pushLocalStorage;
+
+const getFavelist = () => {
+  // RETRIVING THE FROM THE LOCAL STORAGE
+  return localStorage.getItem('faveRecipe') ? JSON.parse(localStorage.getItem('faveRecipe')) : [];
+}; //   DISPLAYING FAVE RECIPE TO THE DOM FROM LOCAL STORAGE
+
+
+const faveDOM = data => {
+  const dataArr = data.map(ingredientList => {
+    return " \n          <small>\n          <h1>".concat(ingredientList.title, "</h1>\n      </small>\n      <ul>\n      ").concat((0, _recipeDOM.saved_Ingredient)(ingredientList), "\n  </ul>\n  <small>\n      <a href=").concat(ingredientList.source_url, " target=\"blank\">how to cook</a>\n  </small>\n  <button class=\"delete__button\">clear</button>\n  ");
+  }).join('');
+  _base.element.fave__list.innerHTML = dataArr;
+};
+
+const clearFaveList = () => {
+  document.querySelector('.delete__button').addEventListener('click', e => {
+    localStorage.removeItem('faveRecipe');
+    _base.element.fave__list.innerHTML = '';
+  });
+};
+/**DISPLAY FAVE RECIPE LIST WHEN PAGE LOADS */
+
+
+window.addEventListener('load', () => {
+  const data__returned = getFavelist();
+  faveDOM(data__returned);
+});
 },{"./base":"js/views/base.js","./recipeDOM":"js/views/recipeDOM.js"}],"js/views/recipeDOM.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getFavelist = exports.loadObj = exports.recipeDetails_DOM = exports.displayRecipeData = void 0;
+exports.loadObj = exports.saved_Ingredient = exports.recipeDetails_DOM = exports.displayRecipeData = void 0;
 
 var _addLoader = require("./addLoader");
 
 var _base = require("./base");
+
+var _faveRecipe = require("./faveRecipe");
 
 // VARIABLE FOR PAGINTION
 let recipe__Data = [];
@@ -2991,7 +3041,7 @@ const EmptyDOM = elem => {
 const recipeDetails_DOM = recipe => {
   loadObj(recipe);
   const creatElem = document.createElement('article');
-  creatElem.innerHTML = "\n    <div class=\"image_container\">\n    <img src=".concat(recipe.image_url, " alt=\"heart\">\n    <div class=\"delete__container\">\n                        <div class=\"cycle\"id='details__cycle'>\n                            <span></span>\n                            <span></span>\n                            <span></span>\n                        </div>\n                        <div class=\"delete\" id='").concat(recipe.recipe_id, "'>\n                            To Fave\n                        </div>\n                    </div>\n    <div class=\"recipe_details_container\">\n     <span class=\"recipe__label\">\n        <h1>").concat(recipe.title, "</h1>\n    </span>\n    <span class=\"calories\">\n        <h1>Publisher: <small>").concat(recipe.publisher, "</small></h1>\n    </span>\n    <span class=\"ingredient__list\">\n        <span>\n            <h1>Ingredient List</h1>\n        </span>\n        <ul> \n        ").concat(saved_Ingredient(recipe), "\n        </ul>\n    </span>\n</div>\n"); // clearDetails(element.detailSection.appendChild(creatElem),creatElem);
+  creatElem.innerHTML = "\n    <div class=\"image_container\">\n    <img src=".concat(recipe.image_url, " alt=\"heart\">\n    <div class=\"delete__container\" >\n  <small class=\"heart__container\" id=").concat(recipe.recipe_id, ">\n  <span class=\"fa fa-heart\"><span>\n</small>\n</div>\n    <div class=\"recipe_details_container\">\n     <span class=\"recipe__label\">\n        <h1>").concat(recipe.title, "</h1>\n    </span>\n    <span class=\"calories\">\n        <h1>Publisher: <small>").concat(recipe.publisher, "</small></h1>\n    </span>\n    <span class=\"ingredient__list\">\n        <span>\n            <h1>Ingredient List</h1>\n        </span>\n        <ul> \n        ").concat(saved_Ingredient(recipe), "\n        </ul>\n    </span>\n</div>\n"); // clearDetails(element.detailSection.appendChild(creatElem), creatElem);
 
   if (!creatElem) {
     _base.element.detailSection.appendChild(creatElem);
@@ -3000,33 +3050,36 @@ const recipeDetails_DOM = recipe => {
 
     _base.element.detailSection.appendChild(creatElem);
   }
-};
-/** ADDING EACH RECIPE IMAGE AS FAVE AND ADDING TO THE LOCAL STORAGE */
-// ARRAY TO DATA TO LOCAL STORAGE
+}; // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
 
 
 exports.recipeDetails_DOM = recipeDetails_DOM;
+
+const saved_Ingredient = data => {
+  const savedIngredient = data.ingredients.map(data => {
+    // let change = data.split("")[0];
+    // // console.log(change);
+    return "<li>".concat(data, "</li>");
+  }).join('');
+  return savedIngredient;
+}; // ARRAY TO DATA TO LOCAL STORAGE
+
+
+exports.saved_Ingredient = saved_Ingredient;
 let localStorageArr = [];
 
 const loadObj = data => {
   _base.element.detailSection.addEventListener('click', e => {
-    const targetID = e.target.id;
-    const delete_Class = document.querySelector('.delete');
+    const targeted = e.target.closest('small');
 
-    if (targetID) {
-      delete_Class.classList.add('visible');
-      delete_Class.addEventListener('click', e => {
-        const deleteID = delete_Class.id; // GETTING THE RECIPE OBJECT OF THE SELECTED RECIPE IMAGE DATAILS
+    if (targeted) {
+      const ID = targeted.id; // GETTING THE RECIPE OBJECT OF THE SELECTED RECIPE IMAGE DATAILS
 
-        if (data.recipe_id === deleteID) {
-          localStorageArr = [data];
-          clearFaveList(localStorageArr); // SEND THE ARRAY TO LOCAL STORAGE
+      if (data.recipe_id === ID) {
+        localStorageArr = [data]; // SEND THE ARRAY TO LOCAL STORAGE
 
-          pushLocalStorage(localStorageArr); //    remove the delete button
-
-          delete_Class.style.visibility = 'hidden';
-        }
-      });
+        (0, _faveRecipe.pushLocalStorage)(localStorageArr);
+      }
     }
 
     ;
@@ -3036,51 +3089,7 @@ const loadObj = data => {
 
 
 exports.loadObj = loadObj;
-
-const pushLocalStorage = val => {
-  // SEND THE ARRAY TO LOCAL STORAGE
-  localStorage.setItem('faveRecipe', JSON.stringify(val));
-  const data__returned = getFavelist();
-  faveDOM(data__returned);
-};
-
-const getFavelist = () => {
-  // RETRIVING THE FROM THE LOCAL STORAGE
-  return localStorage.getItem('faveRecipe') ? JSON.parse(localStorage.getItem('faveRecipe')) : [];
-}; //   DISPLAYING FAVE RECIPE TO THE DOM FROM LOCAL STORAGE
-
-
-exports.getFavelist = getFavelist;
-
-const faveDOM = data => {
-  const dataArr = data.map(ingredientList => {
-    return " \n          <small>\n          <h1>".concat(ingredientList.title, "</h1>\n      </small>\n      <ul>\n      ").concat(saved_Ingredient(ingredientList), "\n  </ul>\n  <small>\n      <a href=").concat(ingredientList.source_url, " target=\"blank\">source</a>\n  </small>\n  <button>clear</button>\n\n  \n  ");
-  }).join('');
-  _base.element.fave__list.innerHTML = dataArr;
-};
-
-const clearFaveList = arr => {
-  document.querySelector('button').addEventListener('click', e => {
-    const remove__faveDetails = arr.pop(); // delete from the array that house the object
-    // remove the child element containing the list
-  });
-}; // ITERATING OVER THE INGREDIENT ARRAY AND DISPLAYING THE DATA
-
-
-const saved_Ingredient = data => {
-  const savedIngredient = data.ingredients.map(data => {
-    return "<li>".concat(data, "</li>");
-  }).join('');
-  return savedIngredient;
-};
-/**DISPLAY FAVE RECIPE LIST WHEN PAGE LOADS */
-
-
-window.addEventListener('load', () => {
-  const data__returned = getFavelist();
-  faveDOM(data__returned);
-});
-},{"./addLoader":"js/views/addLoader.js","./base":"js/views/base.js"}],"js/models/RecipeDetails.js":[function(require,module,exports) {
+},{"./addLoader":"js/views/addLoader.js","./base":"js/views/base.js","./faveRecipe":"js/views/faveRecipe.js"}],"js/models/RecipeDetails.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -3278,7 +3287,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50794" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56224" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

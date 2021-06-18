@@ -1,15 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto:wght@100&family=Stalinist+One&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto:wght@100&family=Stalinist+One&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@300&family=Satisfy&family=Stalinist+One&display=swap');
 
+/* font-family: 'Big Shoulders Stencil Display', cursive;
+font-family: 'Satisfy', cursive; */
+/* background: hsla(333, 100%, 53%, 1);
+
+background: linear-gradient(90deg, hsla(333, 100%, 53%, 1) 0%, hsla(33, 94%, 57%, 1) 100%);
+
+background: -moz-linear-gradient(90deg, hsla(333, 100%, 53%, 1) 0%, hsla(33, 94%, 57%, 1) 100%);
+
+background: -webkit-linear-gradient(90deg, hsla(333, 100%, 53%, 1) 0%, hsla(33, 94%, 57%, 1) 100%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FF0F7B", endColorstr="#F89B29", GradientType=1 ); */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+/*  hsla(333, 100%, 53%, 1) 0%,
+    hsla(33, 94%, 57%, 1) 100% */
 html {
-  --base: #642b73;
-  --accent: #c6426e;
+  --base: hsla(333, 100%, 53%, 1);
+  --accent: hsla(33, 94%, 57%, 1);
   --light: #f1f1f1;
   --dark: #f3f3f3;
+  --paragraph: 'Big Shoulders Stencil Display', cursive;
+  --heading: 'Satisfy', cursive;
 }
 body {
   width: 100vw;
@@ -24,10 +40,10 @@ body {
     'left middle middle right';
 }
 h1 {
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--heading);
 }
 p {
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--paragraph);
 }
 li {
   list-style-type: none;
@@ -46,7 +62,27 @@ li {
   justify-content: space-evenly;
   align-items: center;
   border-bottom: 1px solid #ccc;
-  background-color: var(--base);
+  background: hsla(333, 100%, 53%, 1);
+
+  background: linear-gradient(
+    90deg,
+    hsla(333, 100%, 53%, 1) 0%,
+    hsla(33, 94%, 57%, 1) 100%
+  );
+
+  background: -moz-linear-gradient(
+    90deg,
+    hsla(333, 100%, 53%, 1) 0%,
+    hsla(33, 94%, 57%, 1) 100%
+  );
+
+  background: -webkit-linear-gradient(
+    90deg,
+    hsla(333, 100%, 53%, 1) 0%,
+    hsla(33, 94%, 57%, 1) 100%
+  );
+
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FF0F7B", endColorstr="#F89B29", GradientType=1 );
 }
 nav,
 .logo,
@@ -109,7 +145,7 @@ form #search {
   right: 0;
   width: 155px;
   height: 100%;
-  background: linear-gradient(to left, var(--base), var(--accent));
+  background-color: var(--accent);
   padding: 5px 0;
   border-radius: 20px;
   cursor: pointer;
@@ -120,7 +156,8 @@ form #search {
   color: #f1f1f1;
 }
 .search_button:hover {
-  background: linear-gradient(to right, #652b73ef, var(--accent));
+  /* background: linear-gradient(to right, #652b73ef, var(--accent)); */
+  background: hsla(333, 100%, 53%, 1) 0%;
 }
 
 @media only screen and (width: 768px) {
@@ -197,7 +234,7 @@ form #search {
 }
 .recipe_container {
   grid-area: left;
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
   overflow-y: auto;
 }
 
@@ -266,14 +303,16 @@ form #search {
 .image_container {
   width: 95%;
   height: 350px;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
-  position: relative;
+  /* position: relative; */
   margin-top: 10px;
+  position: relative;
 }
 .image_container img {
   height: 100%;
   width: 100%;
+  object-fit: cover;
 }
 .heart_icon {
   position: absolute;
@@ -306,73 +345,67 @@ form #search {
   transition-delay: 0.5s;
 }
 .recipe_details_container {
-  width: 95%;
-  min-height: 700px;
+  width: 100%;
   max-width: 650px;
   margin: 0 auto;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 .recipe_details_container > span {
-  display: inline-block;
-  width: 80%;
+  /* display: inline-block; */
+  /* width: 80%; */
   /* height: 50%; */
 }
 .recipe__label {
-  min-width: fit-content;
-  padding: 10px 30px;
   border-radius: 5px;
-  background: linear-gradient(var(--accent), var(--base));
 }
 .calories {
-  padding: 10px 20px;
-  border-radius: 5px;
-  background: linear-gradient(var(--accent), var(--base));
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .recipe__label h1,
 .calories h1 {
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 800;
   text-align: center;
-  color: #fff;
+  color: var(--accent);
 }
 
 .total__nutrient,
 .ingredient__list {
-  min-height: 500px;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .total__nutrient span,
 .ingredient__list span {
-  display: inline-block;
+  /* display: inline-block;
   border-radius: 5px;
   background: linear-gradient(var(--accent), var(--base));
-  padding: 10px 20px;
+  padding: 10px 20px; */
 }
 .total__nutrient h1,
 .ingredient__list h1 {
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 800;
   text-align: center;
-  color: #fff;
+  color: var(--base);
 }
 .total__nutrient ul,
 .ingredient__list ul {
   height: 100%;
   width: 100%;
   padding-top: 40px;
+  /* text-align: center; */
 }
 .total__nutrient ul li,
 .ingredient__list ul li {
-  font-size: 20px;
+  font-size: 25px;
   font-weight: lighter;
   color: var(--base);
-  font-family: 'Open Sans', sans-serif;
-  list-style: circle;
+  font-family: var(--paragraph);
+  font-weight: bold;
+  list-style: square;
   padding: 10px 0;
 }
 
@@ -381,6 +414,7 @@ form #search {
   /* position: relative; */
   grid-area: right;
   border-left: 1px solid #ccc;
+  overflow-y: auto;
 }
 
 .fave_images_container {
@@ -389,8 +423,8 @@ form #search {
   background-color: #fff;
 }
 .fave_images_container h1 {
-  font-size: 20px;
-  font-family: 'Stalinist One', cursive;
+  font-size: 30px;
+  font-family: var(--heading);
   color: var(--base);
   text-align: center;
 }
@@ -405,16 +439,15 @@ form #search {
 .fave__list small {
   display: inline-block;
   padding: 10px 10px;
-  background: linear-gradient(var(--accent), var(--base));
   margin: 0 10px;
   margin-top: 39px;
 }
 
 .fave__list small h1 {
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--heading);
   font-size: 25px;
   text-transform: capitalize;
-  color: #f1f1f1;
+  color: var(--accent);
 }
 .fave_images_container .fave__list ul {
   height: 100%;
@@ -427,7 +460,9 @@ form #search {
 }
 .fave_images_container > .fave__list ul li {
   width: 50%;
-  font-size: 18px;
+  font-size: 23px;
+  font-family: var(--paragraph);
+  font-weight: bold;
   list-style-type: none;
   padding: 5px 0;
   text-align: left;
@@ -436,7 +471,7 @@ form #search {
 }
 small a {
   font-size: 25px;
-  color: #fff;
+  color: var(--accent);
   text-decoration: none;
 }
 small a:hover {
@@ -446,8 +481,9 @@ small a:hover {
   display: block;
   padding: 10px 15px;
   margin: 0 auto;
-  margin-top: 50px;
-  background-color: var(--base);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: var(--accent);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -458,12 +494,12 @@ small a:hover {
   box-shadow: 2px 5px 5px #ccc;
 }
 .fave_images_container button:hover {
-  background: #833696;
+  /* background: #833696; */
 }
 
 @media only screen and (max-width: 768px) {
   .fav_recipe {
-    position: relative;
+    /* position: relative; */
     grid-area: right;
     border-left: 1px solid #ccc;
   }
@@ -495,38 +531,14 @@ small a:hover {
   height: 50px;
   width: 100px;
   position: absolute;
-  top: 10px;
-  right: 20px;
+  top: 20px;
+  right: 5px;
 }
-.cycle {
-  height: 35px;
-  width: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  margin-left: auto;
+
+.fa-heart {
+  font-size: 40px;
   cursor: pointer;
-}
-.cycle span {
-  height: 5px;
-  width: 5px;
-  background-color: #fff;
-  border-radius: 50%;
-}
-.delete {
-  padding: 8px 15px;
-  font-weight: 500;
-  font-size: 18px;
-  text-transform: capitalize;
-  text-align: center;
-  visibility: hidden;
-  transition: visibility 0.5s ease-out;
-  background-color: #f1f1f1;
-  cursor: pointer;
-}
-.visible {
-  visibility: visible;
+  color: var(--accent);
 }
 .fav_recipe_details {
   position: absolute;
@@ -626,7 +638,7 @@ small a:hover {
     width: 100%;
   }
   nav {
-    background: linear-gradient(to right, var(--base), var(--accent));
+    /* background: linear-gradient(to right, var(--base), var(--accent)); */
     justify-content: space-around !important;
     align-items: center !important;
     cursor: default;
@@ -646,7 +658,6 @@ small a:hover {
   .logo h1 {
     color: #f1f1f1;
     font-size: 20px;
-    /* font-weight: bold; */
   }
   .search {
     position: absolute;
@@ -657,7 +668,7 @@ small a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to left, var(--base), var(--accent));
+    /* background: linear-gradient(to left, var(--base), var(--accent)); */
     z-index: 100;
     visibility: hidden;
     transition: opacity 0.2s ease-out;
@@ -692,7 +703,7 @@ small a:hover {
     left: 0;
     bottom: 0;
     display: block !important;
-    background: linear-gradient(to bottom, var(--base), var(--accent));
+    /* background: linear-gradient(to bottom, var(--base), var(--accent)); */
     width: 100%;
     /* height: 50px; */
     padding-top: 5px;
@@ -731,7 +742,7 @@ small a:hover {
   #theme small,
   .filter small {
     font-size: 10px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: var(--paragraph);
     font-weight: 600;
     color: #f1f1f1;
     text-align: center;
@@ -783,14 +794,14 @@ small a:hover {
 }
 .dev__name span {
   font-size: 15px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--paragraph);
   font-weight: 600;
   color: var(--base);
   text-align: center;
 }
 .dev__name * small {
   font-size: 20px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--paragraph);
   font-weight: 600;
   color: var(--base);
   text-align: center;
