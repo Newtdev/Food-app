@@ -961,14 +961,12 @@ function pageOnClicked(id) {
 const openSearchBar = () => {
   _base.element.searchIcon.addEventListener("click", () => {
     _base.element.search.classList.toggle("active");
+
+    _base.element.home.classList.add('hide_page');
   });
 };
 
-openSearchBar(); // const removeNavTab = () => {
-// };
-// element.dataContainer.addEventListener('scroll', (e) => {
-//   element.buttonTab.style.display = 'none';
-// });
+openSearchBar();
 },{"./base":"js/views/base.js"}],"../node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 

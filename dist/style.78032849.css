@@ -473,13 +473,9 @@ small a:hover {
   transition: background 0.2s ease-in, transform 0.01s ease-in;
   box-shadow: 2px 5px 5px #ccc;
 }
-.fave_images_container button:hover {
-  /* background: #833696; */
-}
 
 @media only screen and (max-width: 768px) {
   .fav_recipe {
-    /* position: relative; */
     grid-area: right;
     border-left: 1px solid #ccc;
   }
@@ -623,7 +619,6 @@ small a:hover {
     width: 100%;
   }
   nav {
-    /* background: linear-gradient(to right, var(--base), var(--accent)); */
     justify-content: space-around !important;
     align-items: center !important;
     cursor: default;
@@ -688,7 +683,7 @@ small a:hover {
     left: 0;
     bottom: 0;
     display: block !important;
-    background: var(--text);
+    background: var(--base);
     width: 100%;
     padding-top: 5px;
     z-index: 10;

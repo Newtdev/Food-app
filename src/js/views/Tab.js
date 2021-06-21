@@ -43,16 +43,9 @@ function pageOnClicked(id) {
 const openSearchBar = () => {
   element.searchIcon.addEventListener("click", () => {
     element.search.classList.toggle("active");
+    element.home.classList.add('hide_page');
 
   });
 };
 
 openSearchBar();
-
-// const removeNavTab = () => {
-
-// };
-
-// element.dataContainer.addEventListener('scroll', (e) => {
-//   element.buttonTab.style.display = 'none';
-// });
