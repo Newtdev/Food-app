@@ -223,7 +223,6 @@ form #search {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  margin-top: 120px;
 }
 .pagination {
   background: var(--button);
@@ -242,9 +241,8 @@ form #search {
   transform: translateY(3px);
 }
 .recipe__container {
-  height: 100%;
+  height: auto;
   width: 100%;
-  /* background-color: #fff; */
 }
 .recipe__container > li {
   height: 150px;
@@ -551,6 +549,7 @@ small a:hover {
     position: relative;
     min-height: 100vh;
     margin-bottom: 40px;
+    /* overflow-y: hidden; */
   }
   .recipe__container {
     width: 100%;
@@ -560,6 +559,7 @@ small a:hover {
     justify-content: space-around;
     align-items: center;
     margin-top: 50px;
+    overflow-y: auto;
   }
   .recipe__container > li {
     background-color: green;
