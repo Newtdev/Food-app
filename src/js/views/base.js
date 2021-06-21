@@ -25,7 +25,8 @@ export const element = {
   fave__list: document.querySelector('.fave__list'),
   home: document.querySelector('.home'),
   heart: document.querySelector('.heart'),
-  clearButton: document.querySelector('.fave_images_container button')
+  clearButton: document.querySelector('.fave_images_container button'),
+  buttonTab: document.querySelector('.button_tab')
 
 };
 // console.log(element.searchQuery);

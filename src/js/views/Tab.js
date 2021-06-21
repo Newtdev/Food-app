@@ -48,3 +48,11 @@ const openSearchBar = () => {
 };
 
 openSearchBar();
+
+// const removeNavTab = () => {
+
+// };
+
+// element.dataContainer.addEventListener('scroll', (e) => {
+//   element.buttonTab.style.display = 'none';
+// });

@@ -902,7 +902,8 @@ const element = {
   fave__list: document.querySelector('.fave__list'),
   home: document.querySelector('.home'),
   heart: document.querySelector('.heart'),
-  clearButton: document.querySelector('.fave_images_container button')
+  clearButton: document.querySelector('.fave_images_container button'),
+  buttonTab: document.querySelector('.button_tab')
 }; // console.log(element.searchQuery);
 // https://github.com/Newtdev/Food-app.git
 
@@ -963,7 +964,11 @@ const openSearchBar = () => {
   });
 };
 
-openSearchBar();
+openSearchBar(); // const removeNavTab = () => {
+// };
+// element.dataContainer.addEventListener('scroll', (e) => {
+//   element.buttonTab.style.display = 'none';
+// });
 },{"./base":"js/views/base.js"}],"../node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
@@ -3287,7 +3292,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56224" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62406" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
